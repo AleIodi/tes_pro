@@ -1,0 +1,206 @@
+<div style="display: flex; flex-direction: column;">
+  <mat-toolbar color="accent" class="f4ns-toolbar f4ns-header" style="flex: 0 0 auto;">
+    <button *ngIf="!serviceTaskReport.signature || serviceTaskReport.signature == ''" mat-icon-button matTooltip="Firma Cliente" (click)="signatureCustomer()">
+      <mat-icon class="mdi mdi-pen"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Stampa PDF" (click)="printPDF()">
+      <mat-icon class="mdi mdi-printer"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Esporta PDF" (click)="exportPDF()">
+      <mat-icon class="mdi mdi-file-pdf-outline"></mat-icon>
+    </button>
+    <button *ngIf="!isPublic" mat-icon-button matTooltip="Invia Email" (click)="sendMail()">
+      <mat-icon class="mdi mdi-mail"></mat-icon>
+    </button>
+  </mat-toolbar>
+</div>
+
+<div id="report" style="display: flex; flex-direction: column;" class="f4ns-format-A4">
+  <!-- HEADER -->
+  <div style="flex: 1; display: flex; flex-direction: row; border: 2px solid black;">
+    <div style="flex: 1; display: flex; flex-direction: column; border-right: 2px solid black;">
+      <div style="flex: 1 1 60%; max-height: 84px; border-bottom: 2px solid black;" class="f4ns-logo">
+      </div>
+
+      <div style="flex: 1 1 20%; display: flex; flex-direction: row; max-height: 28px;">
+        <div style="flex: 1; padding: 4px; border-bottom: 1px solid lightgray;" class="f4ns-label">CLIENTE</div>
+        <div style="flex: 3; padding: 4px; border-bottom: 1px solid lightgray;" class="f4ns-value">{{consumer && consumer["name"] ? consumer["name"] : ""}}</div>
+      </div>
+
+      <div style="flex: 1 1 20%; display: flex; flex-direction: row; max-height: 28px;">
+        <div style="flex: 1; padding: 4px;" class="f4ns-label">INDIRIZZO</div>
+        <div style="flex: 3; padding: 4px;" class="f4ns-value">{{
+          (consumer && consumer["address"] ? consumer["address"] : "") +
+          (consumer && consumer["province"] ? " (" + consumer["province"] + ")" : "") +
+          (consumer && consumer["city"] ? " " + consumer["city"] : "")
+        }}</div>
+      </div>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div style="flex: 1 1 20%; max-height: 28px; padding: 4px; border-bottom: 2px solid black;" class="f4ns-title">FOGLIO DI INTERVENTO</div>
+
+      <div style="flex: 1 1 20%; max-height: 28px; display: flex; flex-direction: row;">
+        <div style="flex: 2; padding: 4px; border-bottom: 2px solid black;" class="f4ns-label">DATA EMISSIONE</div>
+        <div style="flex: 3; padding: 4px; border-bottom: 2px solid black;" class="f4ns-value">{{serviceTaskReport ? serviceTaskReportDate : ""}}</div>
+      </div>
+
+      <div style="flex: 1 1 20%; max-height: 28px; display: flex; flex-direction: row;">
+        <div style="flex: 2; padding: 4px; border-bottom: 2px solid black;" class="f4ns-label">FOGLIO N.</div>
+        <div style="flex: 3; padding: 4px; border-bottom: 2px solid black;" class="f4ns-value">{{serviceTaskReport ? serviceTaskReport.code : ""}}</div>
+      </div>
+
+      <div style="flex: 1; display: flex; max-height: 28px; flex-direction: row;">
+        <div style="flex: 2; padding: 4px; border-bottom: 1px solid lightgray;" class="f4ns-label">PROGETTO</div>
+        <div style="flex: 3; padding: 4px; border-bottom: 1px solid lightgray;" class="f4ns-value">*WMS</div>
+      </div>
+
+      <div style="flex: 1 1 20%; max-height: 28px; display: flex; flex-direction: row;">
+        <div style="flex: 2; padding: 4px;" class="f4ns-label">COMMESSA</div>
+        <div style="flex: 3; padding: 4px;" class="f4ns-value">{{job && job["code"] ? job["code"] : ""}}</div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <!-- ORE -->
+  <div style="flex: 1; display: flex; flex-direction: column;">
+    <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px; border-top: 2px solid black; border-left: 2px solid black; border-right: 2px solid black;">
+      <div style="flex: 0 0 50%; padding: 4px; border-bottom: 2px solid black; border-right: 2px solid black;" class="f4ns-label f4ns-center">Ore Lavoro</div>
+      <div style="flex: 0 0 20%; padding: 4px; border-bottom: 2px solid black; border-right: 2px solid black;" class="f4ns-label f4ns-center">Totale Giornalieri</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-bottom: 2px solid black; border-right: 2px solid black;" class="f4ns-label f4ns-center">Km A + R</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-bottom: 2px solid black; border-right: 2px solid black;" class="f4ns-label f4ns-center">Pranzo</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-bottom: 2px solid black;" class="f4ns-label f4ns-center">Cena</div>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px; border-left: 2px solid black; border-right: 2px solid black;">
+      <div style="flex: 0 0 5%; padding: 4px; border-bottom: 1px solid lightgray; border-right: 1px solid lightgray;" class="f4ns-label f4ns-center"></div>
+      <div style="flex: 0 0 13%; padding: 4px; border-bottom: 1px solid lightgray; border-right: 1px solid lightgray;" class="f4ns-label f4ns-center">Data</div>
+      <div style="flex: 0 0 8%; padding: 4px; border-bottom: 1px solid lightgray; border-right: 1px solid lightgray;" class="f4ns-label f4ns-center">Dalle</div>
+      <div style="flex: 0 0 8%; padding: 4px; border-bottom: 1px solid lightgray; border-right: 1px solid lightgray;" class="f4ns-label f4ns-center">Alle</div>
+      <div style="flex: 0 0 8%; padding: 4px; border-bottom: 1px solid lightgray; border-right: 1px solid lightgray;" class="f4ns-label f4ns-center">Dalle</div>
+      <div style="flex: 0 0 8%; padding: 4px; border-bottom: 1px solid lightgray; border-right: 2px solid black;" class="f4ns-label f4ns-center">Alle</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black; border-bottom: 1px solid lightgray;" class="f4ns-label f4ns-center">h. Viaggio</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black; border-bottom: 1px solid lightgray;" class="f4ns-label f4ns-center">h. Lavoro</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black; border-bottom: 1px solid lightgray;"></div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black; border-bottom: 1px solid lightgray;"></div>
+      <div style="flex: 0 0 10%; padding: 4px; border-bottom: 1px solid lightgray;"></div>
+    </div>
+
+    <div *ngFor="let day of dayList" style="flex: 1; display: flex; flex-direction: row; max-height: 28px; border-left: 2px solid black; border-right: 2px solid black;">
+      <div style="flex: 0 0 5%; padding: 4px; border-right: 1px solid lightgray;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-label f4ns-center">{{day.label}}</div>
+      <div style="flex: 0 0 13%; padding: 4px; border-right: 1px solid lightgray;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center">{{day.date ? day.date : ""}}</div>
+      <div style="flex: 0 0 8%; padding: 4px; border-right: 1px solid lightgray;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center">{{day.serviceOperationList[0] ? day.serviceOperationList[0]["date_start_fixed"] : ""}}</div>
+      <div style="flex: 0 0 8%; padding: 4px; border-right: 1px solid lightgray;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center">{{day.serviceOperationList[0] ? day.serviceOperationList[0]["date_end_fixed"] : ""}}</div>
+      <div style="flex: 0 0 8%; padding: 4px; border-right: 1px solid lightgray;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center">{{day.serviceOperationList[1] ? day.serviceOperationList[1]["date_start_fixed"] : ""}}</div>
+      <div style="flex: 0 0 8%; padding: 4px; border-right: 2px solid black;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center">{{day.serviceOperationList[1] ? day.serviceOperationList[1]["date_end_fixed"] : ""}}</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center"></div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center">{{day.workHours ? day.workHours.toFixed(2) : ""}}</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center"></div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center"></div>
+      <div style="flex: 0 0 10%; padding: 4px;" [ngStyle]="{'border-bottom': day.num==7 ? '2px solid black' : '1px solid lightgray'}" class="f4ns-value f4ns-center"></div>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px;">
+      <div style="flex: 0 0 26%;" class="f4ns-label f4ns-center"></div>
+      <div style="flex: 0 0 24%; padding: 4px; border-left: 2px solid black; border-right: 2px solid black; border-bottom: 2px solid black;" class="f4ns-label f4ns-center">Totali Settimanali</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black; border-bottom: 2px solid black;" class="f4ns-value f4ns-center">we</div>
+      <div style="flex: 0 0 10%; padding: 4px; border-right: 2px solid black; border-bottom: 2px solid black;" class="f4ns-value f4ns-center">{{workHoursTot > 0 ? workHoursTot.toFixed(2) : ""}}</div>
+      <div style="flex: 0 0 30%;"></div>
+    </div>
+  </div>
+
+  <br />
+
+  <!-- TIPOLOGIA INTERVENTO -->
+  <div style="flex: 1; display: flex; flex-direction: column; max-height: 90px; border-top: 2px solid black; border-right: 2px solid black; border-left: 2px solid black;">
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div style="flex: 1; max-height: 28px; padding: 4px; border-bottom: 2px solid black;" class="f4ns-title f4ns-center">TIPOLOGIA INTERVENTO</div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px; padding: 4px;">
+        <div style="flex: 1;">
+          <mat-checkbox #checkbox_service [checked]="serviceTypology=='SERVICE'" (change)="setJsonField_serviceTypology(checkbox_service.checked,'SERVICE')">Assistenza telefonica o collegamento remoto</mat-checkbox>
+        </div>
+        <div style="flex: 1;">
+          <mat-checkbox #checkbox_customer [checked]="serviceTypology=='CUSTOMER'" (change)="setJsonField_serviceTypology(checkbox_customer.checked,'CUSTOMER')">Intervento presso il Cliente</mat-checkbox>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px; padding: 4px;">
+        <div style="flex: 1;">
+          <mat-checkbox #checkbox_develop [checked]="serviceTypology=='DEVELOP'" (change)="setJsonField_serviceTypology(checkbox_develop.checked,'DEVELOP')">Sviluppo nuove implementazioni a consuntivo</mat-checkbox>
+        </div>
+        <div style="flex: 1;">
+          <mat-checkbox #checkbox_warranty [checked]="serviceTypology=='WARRANTY'" (change)="setJsonField_serviceTypology(checkbox_warranty.checked,'WARRANTY')">Intervento in garanzia</mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTIVO INTERVENTO -->
+  <div style="flex: 1; display: flex; flex-direction: column; border-top: 2px solid black; border-right: 2px solid black; border-left: 2px solid black;">
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div style="flex: 1; max-height: 28px; padding: 4px; border-bottom: 2px solid black;" class="f4ns-title f4ns-center">MOTIVO INTERVENTO</div>
+      <div style="flex: 1; max-height: 28px; padding: 4px;">{{this.serviceTask ? this.serviceTask.description : ""}}</div>
+    </div>
+  </div>
+
+  <!-- ATTIVITA' SVOLTE -->
+  <div style="flex: 1; display: flex; flex-direction: column; border-top: 2px solid black; border-right: 2px solid black; border-left: 2px solid black;">
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div style="flex: 1; max-height: 28px; padding: 4px; border-bottom: 2px solid black;" class="f4ns-title f4ns-center">ATTIVITA' SVOLTE</div>
+      <div style="flex: 1; display: flex; flex-direction: column; border-bottom: 2px solid black;">
+        <ng-container *ngFor="let day of dayList">
+          <ng-container *ngFor="let operation of day.serviceOperationList">
+            <div style="flex: 1; max-height: 28px; padding: 4px;">- {{operation.description}}</div>
+          </ng-container>
+        </ng-container>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row;">
+        <div style="flex: 4; max-height: 28px; padding: 4px; border-right: 2px solid black;"></div>
+        <div style="flex: 2; max-height: 28px; padding: 4px; border-right: 2px solid black;">Intervento risolutivo</div>
+        <div style="flex: 1; max-height: 28px; padding: 4px; border-right: 2px solid black;">SI</div>
+        <div style="flex: 1; max-height: 28px; padding: 4px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTE -->
+  <div style="flex: 1; display: flex; flex-direction: column; border-top: 2px solid black; border-right: 2px solid black; border-left: 2px solid black;">
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div style="flex: 1; max-height: 28px; padding: 4px; border-bottom: 2px solid black;" class="f4ns-title f4ns-center">NOTE</div>
+      <div style="flex: 1; max-height: 28px; padding: 4px;"></div>
+    </div>
+  </div>
+
+  <!-- APPROVAZIONE -->
+  <div style="flex: 1; display: flex; flex-direction: column; border: 2px solid black;">
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div style="flex: 1; max-height: 28px; padding: 4px; border-bottom: 2px solid black;" class="f4ns-title f4ns-center">APPROVAZIONE</div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; border-bottom: 2px solid black;">
+        <div style="flex: 1; max-height: 28px; padding: 4px; border-right: 2px solid black;">SOCIETA'</div>
+        <div style="flex: 1; max-height: 28px; padding: 4px; border-right: 2px solid black;">NOMINATIVO</div>
+        <div style="flex: 1; max-height: 28px; padding: 4px;">FIRMA</div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; border-bottom: 2px solid black;">
+        <div style="flex: 1; max-height: 60px; padding: 4px; border-right: 2px solid black;">Cliente</div>
+        <div style="flex: 1; max-height: 60px; padding: 4px; border-right: 2px solid black;">{{ contact ? contact.name_first + " " + contact.name_last : "" }}</div>
+        <div style="flex: 1; max-height: 60px; padding: 4px;">
+          <app-signature *ngIf="serviceTaskReport" [width]="200" [height]="50" [readOnly]="true" [data]="serviceTaskReport.signature"></app-signature>
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row;">
+        <div style="flex: 1; max-height: 60px; padding: 4px; border-right: 2px solid black;">4Next Solutions S.r.l.</div>
+        <div style="flex: 1; max-height: 60px; padding: 4px; border-right: 2px solid black;">{{ user ? user.name_first + " " + user.name_last : "" }}</div>
+        <div style="flex: 1; max-height: 60px; padding: 4px; text-align: center;">
+          <app-signature *ngIf="user" [width]="200" [height]="50" [readOnly]="true" [data]="user.signature"></app-signature>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

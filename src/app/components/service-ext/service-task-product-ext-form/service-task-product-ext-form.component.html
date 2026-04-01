@@ -1,0 +1,47 @@
+<form #f4nsForm="ngForm" [formGroup]="formGroup">
+  <div style="display: flex; flex-direction: column;">
+    <div style="flex: 1; display: flex; flex-direction: row;">
+      <div style="width: 100%;">
+        <div style="padding-right: 2px; padding-left: 2px;">
+          <app-form-field [type]="'date'" [label]="'Data'" [name]="'dateStart'" [formField]="formGroupObj.dateStart" style="flex: 1;"></app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: row; align-items: center; gap: 8px;">
+      <app-form-field [type]="'autocomplete'" [label]="'Prodotto'" [name]="'product'" [formField]="formGroupObj.product" [autocompleteObj]="productAutocompleteObj" style="flex: 1;"></app-form-field>
+      <div *ngIf="truck && truckStockAvailable != null" style="display: flex; flex-direction: column; align-items: center; white-space: nowrap; padding: 4px 8px; border-radius: 4px; line-height: 18px;"
+        [style.color]="truckStockAvailable <= 0 ? '#f44336' : '#388e3c'"
+        [style.background-color]="truckStockAvailable <= 0 ? '#fff3f3' : '#f0f8f0'"
+        [style.border]="truckStockAvailable <= 0 ? '1px solid #f44336' : '1px solid #81c784'">
+        <span style="font-size: 11px;">Disponibile</span>
+        <strong style="font-size: 14px;">{{ truckStockAvailable }}</strong>
+      </div>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div style="display: flex; flex-direction: row;">
+        <app-form-field [type]="'text'" [label]="'Quantità'" [name]="'value'" [formField]="formGroupObj.value" style="flex: 1;"></app-form-field>
+      </div>
+      <div *ngIf="formGroupObj.value.hasError('max')" style="color: #f44336; font-size: 12px; margin-top: -8px; margin-bottom: 12px; padding-left: 2px;">
+        Quantità massima disponibile: <strong>{{ formGroupObj.value.getError('max').max }}</strong>
+      </div>
+    </div>
+
+    <div class="form-button-group" style="flex: 1;">
+      <button mat-raised-button color="f4ns-confirm" (click)="save()" [disabled]="!f4nsForm.valid">
+        Salva
+      </button>
+
+      <button mat-raised-button color="f4ns-action" style="margin-left: 10px;" (click)="dialogRef.close()">
+        Annulla
+      </button>
+
+      <ng-container *ngIf="serviceTaskProduct">
+        <button mat-raised-button color="f4ns-cancel" matTooltip="Cancella" style="float: right;" (click)="delete()">
+          <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</form>

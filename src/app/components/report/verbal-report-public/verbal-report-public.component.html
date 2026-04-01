@@ -1,0 +1,27 @@
+<app-verbal-collaudo-ergon-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('ERGON') && autodopVerbalTypology?.code=='TESTING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-ergon-report>
+<app-verbal-collaudo-dioniso-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('DIONISO') && autodopVerbalTypology?.code=='TESTING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-dioniso-report>
+<app-verbal-collaudo-kronos-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('KRONOS') && autodopVerbalTypology?.code=='TESTING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-kronos-report>
+<app-verbal-collaudo-elettra-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('ELETTRA') && autodopVerbalTypology?.code=='TESTING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-elettra-report>
+<app-verbal-collaudo-maia-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('MAIA') && autodopVerbalTypology?.code=='TESTING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-maia-report>
+<app-verbal-collaudo-alcione-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('ALCIONE') && autodopVerbalTypology?.code=='TESTING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-alcione-report>
+
+<app-verbal-addestramento-ergon-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('ERGON') && autodopVerbalTypology?.code=='TRAINING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-addestramento-ergon-report>
+<app-verbal-collaudo-dioniso-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('DIONISO') && autodopVerbalTypology?.code=='TRAINING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-dioniso-report>
+<app-verbal-collaudo-kronos-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('KRONOS') && autodopVerbalTypology?.code=='TRAINING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-kronos-report>
+<app-verbal-collaudo-elettra-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('ELETTRA') && autodopVerbalTypology?.code=='TRAINING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-elettra-report>
+<app-verbal-collaudo-maia-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('MAIA') && autodopVerbalTypology?.code=='TRAINING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-maia-report>
+<app-verbal-collaudo-alcione-report report *ngIf="autodopVerbal && machine?.name.toUpperCase().includes('ALCIONE') && autodopVerbalTypology?.code=='TRAINING'" [isPublic]="true" [autodopVerbal]="autodopVerbal"></app-verbal-collaudo-alcione-report>
+
+<div *ngIf="!autodopVerbal">
+  <div style="text-align: center;">
+    <br>
+    <h2>VERBALE NON TROVATO</h2>
+    <h3>Il report potrebbe essere stato cancellato</h3>
+  </div>
+</div>
+
+<!-- Progress spinner -->
+<div *ngIf="isLoading" style="position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+  <mat-progress-spinner diameter="60" color="primary" mode="indeterminate">
+  </mat-progress-spinner>
+</div>

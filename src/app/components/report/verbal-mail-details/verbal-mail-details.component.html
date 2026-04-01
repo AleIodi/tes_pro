@@ -1,0 +1,11 @@
+<div style="flex: 1 1 auto; width: 100%; display: flex; flex-direction: column;">
+  <div style="flex: 1;">
+    <app-form-field [type]="'autocomplete'" [label]="'Contatti'" [name]="'contact'" [formField]="formGroupObj.contact" [autocompleteObj]="contactAutocompleteObj" style="flex: 1;"></app-form-field>
+  </div>
+
+  <div style="flex: 1;">
+    <button mat-raised-button color="f4ns-confirm" (click)="isSendMailDisabled = true; sendMail();" [disabled]="isSendMailDisabled || contactAutocompleteObj.chipsObj.dataList.length === 0">
+      {{isSendMailDisabled ? "Invio in corso..." : "Invia"}}
+    </button>
+  </div>
+</div>

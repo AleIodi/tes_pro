@@ -1,0 +1,59 @@
+<div style="display: flex; flex-direction: column;">
+  <mat-toolbar color="accent" class="f4ns-toolbar f4ns-header" style="flex: 0 0 auto;">
+    <button *ngIf="isSigned === false" mat-icon-button matTooltip="Firma Cliente" (click)="signatureCustomer()">
+      <mat-icon class="mdi mdi-pen"></mat-icon>
+    </button>
+    <button *ngIf="!isPublic && isSigned === true" mat-icon-button matTooltip="Firma Cliente" (click)="removeSignatureCustomer()">
+      <mat-icon class="mdi mdi-pen-off" style="color: #cd363f;"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Stampa PDF" (click)="printPDF()">
+      <mat-icon class="mdi mdi-printer"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Esporta PDF" (click)="exportPDF()">
+      <mat-icon class="mdi mdi-file-pdf-outline"></mat-icon>
+    </button>
+    <button *ngIf="!isPublic" mat-icon-button matTooltip="Invia Email" (click)="sendMail()">
+      <mat-icon class="mdi mdi-mail"></mat-icon>
+    </button>
+  </mat-toolbar>
+</div>
+
+<div #report id="report" class="f4ns-report">
+
+  <div #preview class="f4ns-report-preview">
+    <div #header class="f4ns-report-header">
+      HEADER
+    </div>
+
+    <div #body class="f4ns-report-body">
+      <div class="f4ns-report-row" style="height: 2cm;">
+        ROW 1
+      </div>
+      <div class="f4ns-report-row" style="height: 2cm;">
+        ROW 2
+      </div>
+      <div class="f4ns-report-row" style="height: 6cm;">
+        ROW 3
+      </div>
+      <div class="f4ns-report-row" style="height: 4cm;">
+        ROW 4
+      </div>
+      <div class="f4ns-report-row" style="height: 6cm;">
+        ROW 5
+      </div>
+      <div class="f4ns-report-row" style="height: 8cm;">
+        ROW 6
+      </div>
+      <div class="f4ns-report-row" style="height: 10cm;">
+        ROW 7
+      </div>
+    </div>
+
+    <div #footer class="f4ns-report-footer">
+      FOOTER
+    </div>
+
+    <div #page class="f4ns-report-page f4ns-report-hidden"> </div>
+  </div>
+
+</div>

@@ -1,0 +1,15 @@
+<app-report-report *ngIf="serviceTaskReport" [isPublic]="true" [serviceTaskReport]="serviceTaskReport"></app-report-report>
+
+<div *ngIf="!serviceTaskReport">
+  <div style="text-align: center;">
+    <br>
+    <h2>REPORT NON TROVATO</h2>
+    <h3>Il report potrebbe essere stato cancellato</h3>
+  </div>
+</div>
+
+<!-- Progress spinner -->
+<div *ngIf="isLoading" style="position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+  <mat-progress-spinner diameter="60" color="primary" mode="indeterminate">
+  </mat-progress-spinner>
+</div>

@@ -1,0 +1,36 @@
+<div style="flex: 1 1 auto; width: 100%; display: flex; flex-direction: column;">
+  <div style="height: 100px; padding: 10px;">
+
+    <mat-checkbox *ngIf="this.extraObj['HOLIDAY'].enabled" [checked]="this.extraObj['HOLIDAY'].value == 1" (change)="serviceExtraChange($event, 'HOLIDAY')" style="margin-right: 30px;">Ferie</mat-checkbox>
+    <mat-checkbox *ngIf="this.extraObj['TICKET'].enabled" [checked]="this.extraObj['TICKET'].value == 1" (change)="serviceExtraChange($event, 'TICKET')" style=" margin-right: 30px;">Ticket</mat-checkbox>
+    <mat-checkbox *ngIf="this.extraObj['DISEASE'].enabled" [checked]="this.extraObj['DISEASE'].value == 1" (change)="serviceExtraChange($event, 'DISEASE')" style=" margin-right: 30px;">Malattia</mat-checkbox>
+    <mat-checkbox *ngIf="this.extraObj['MATERNITY'].enabled" [checked]="this.extraObj['MATERNITY'].value == 1" (change)="serviceExtraChange($event, 'MATERNITY')" style=" margin-right: 30px;">Maternità</mat-checkbox>
+
+    <br />
+    <br />
+
+    <div *ngIf="this.extraObj['ROL'].enabled" style="flex: 1; display: flex; flex-direction: row;">
+      <app-form-field [type]="'number'" [label]="'ROL'" [name]="'rol'" [formField]="extraObj['ROL']['formControl']" (change)="serviceExtraChange($event, 'ROL')" style="flex: 1;"></app-form-field>
+    </div>
+  </div>
+
+  <div style="flex: 1; display: flex;">
+    <mat-tab-group animationDuration="200ms" style="flex: 1;">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="mdi mdi-progress-wrench" style="margin-right: 10px;"></mat-icon>
+          Operazioni
+        </ng-template>
+        <app-service-operation-list [serviceTypologyCode]="'INTERNAL'" [serviceTask]="serviceTask" [dateStart]="dateStart" [dateEnd]="dateEnd"></app-service-operation-list>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="mdi mdi-currency-eur" style="margin-right: 10px;"></mat-icon>
+          Spese
+        </ng-template>
+        <app-service-extra-list [serviceTypologyCode]="'INTERNAL'" [serviceTask]="serviceTask" [dateStart]="dateStart"></app-service-extra-list>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

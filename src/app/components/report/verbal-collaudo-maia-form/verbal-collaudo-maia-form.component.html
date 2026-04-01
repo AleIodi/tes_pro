@@ -1,0 +1,544 @@
+<form #f4nsForm="ngForm" [formGroup]="formGroup">
+  <div style="display: flex; flex-direction: column;">
+
+    <div style="padding: 10px;">
+
+      <!--CHECK LIST-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; margin-bottom: 5px;">
+        <div class="f4ns-title" style="flex: 1; ">
+          <span>CHECK LIST DI COLLAUDO</span>
+        </div>
+        <div class="f4ns-title" style="flex: 0 0 150px; text-align: center;">
+          <span>ESITO</span>
+        </div>
+      </div>
+
+      <!--1-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Controllo fasi</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0010'" [formField]="formGroupObj.q0010" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+
+      <!--2-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica settaggio encoder verticale (pinza circa 300mm sopra tavola)</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0020'" [formField]="formGroupObj.q0020" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--3-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica e settaggio encoder longitudinale</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0030'" [formField]="formGroupObj.q0030" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--4-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso marcia motore traino spazzole</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0040'" [formField]="formGroupObj.q0040" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--5-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica freno motore traino spazzole</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0050'" [formField]="formGroupObj.q0050" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--6-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso marcia motore centralina</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0060'" [formField]="formGroupObj.q0060" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--7-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso marcia motore traino spazzole</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0070'" [formField]="formGroupObj.q0070" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--8-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica freno motore traino spazzole</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0080'" [formField]="formGroupObj.q0080" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--9-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore rotazione torretta</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0090'" [formField]="formGroupObj.q0090" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--10-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica freno motore rotazione torretta</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0100'" [formField]="formGroupObj.q0100" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--11-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore traino carro</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0110'" [formField]="formGroupObj.q0110" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--12-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore sal/disc macchina</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0120'" [formField]="formGroupObj.q0120" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--13-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore movimento oscillante (ruota gomma antiorario) 1</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0130'" [formField]="formGroupObj.q0130" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--14-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola lat dx 1</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0140'" [formField]="formGroupObj.q0140" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--15-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola lat sx 1 antiorario</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0150'" [formField]="formGroupObj.q0150" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--16-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola concava 1 antiorario</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0160'" [formField]="formGroupObj.q0160" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--17-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore movimento oscillante (ruota gomma antiorario) 2</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0170'" [formField]="formGroupObj.q0170" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--18-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola lat dx 2</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0180'" [formField]="formGroupObj.q0180" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--19-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola lat sx 2 antiorario</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0190'" [formField]="formGroupObj.q0190" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--20-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola concava 2 antiorario</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0200'" [formField]="formGroupObj.q0200" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--21-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore movimento oscillante (ruota gomma antiorario) 3</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0210'" [formField]="formGroupObj.q0210" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--22-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola lat dx 3</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0220'" [formField]="formGroupObj.q0220" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--23-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola lat sx 3 antiorario</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0230'" [formField]="formGroupObj.q0230" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--24-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola concava 3 antiorario</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0240'" [formField]="formGroupObj.q0240" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--25-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore movimento oscillante (ruota gomma antiorario) 4</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0250'" [formField]="formGroupObj.q0250" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--26-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola lat dx 4</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0260'" [formField]="formGroupObj.q0260" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--27-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola lat sx 4 antiorario</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0270'" [formField]="formGroupObj.q0270" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--28-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica senso di marcia motore spazzola concava 4 antiorario</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0280'" [formField]="formGroupObj.q0280" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--29-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica apertura spazzole 1/2/3/4</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0290'" [formField]="formGroupObj.q0290" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--30-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Regolazione introduzione pinze/spazzole con forma (centraggio)</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0300'" [formField]="formGroupObj.q0300" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--31-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Regolazione distanza spazzole / pinze</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0310'" [formField]="formGroupObj.q0310" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--32-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore orizzontale pinze</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0320'" [formField]="formGroupObj.q0320" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--33-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore verticale 1</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0330'" [formField]="formGroupObj.q0330" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--34-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore orizzontale rovesc. pinze</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0340'" [formField]="formGroupObj.q0340" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--35-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore verticale 2</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0350'" [formField]="formGroupObj.q0350" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--36-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore salita pinze</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0360'" [formField]="formGroupObj.q0360" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--37-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore discesa pinze</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0370'" [formField]="formGroupObj.q0370" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--38-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore / tacca torretta dx</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0380'" [formField]="formGroupObj.q0380" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--39-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore / tacca torretta sx</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0390'" [formField]="formGroupObj.q0390" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--40-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore / tazza torretta centrale</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0400'" [formField]="formGroupObj.q0400" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--41-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore / tacca rotazione torretta dx</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0410'" [formField]="formGroupObj.q0410" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--42-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore / tacca rotazione torretta sx</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0420'" [formField]="formGroupObj.q0420" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--43-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore / tacca rotazione torretta long</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0430'" [formField]="formGroupObj.q0430" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--44-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore avanti spazzole</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0440'" [formField]="formGroupObj.q0440" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--45-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica sensore indietro spazzole</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0450'" [formField]="formGroupObj.q0450" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--46-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica micro troppo alto</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0460'" [formField]="formGroupObj.q0460" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--47-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica micro troppo basso (consenso scheda)</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0470'" [formField]="formGroupObj.q0470" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--48-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica funzionamento barriere</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0480'" [formField]="formGroupObj.q0480" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--49-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica micro sicurezza avanti/indietro traino</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0490'" [formField]="formGroupObj.q0490" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--50-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica funzionamento traino manuale/magnete (batteria)</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0500'" [formField]="formGroupObj.q0500" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--51-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Regolazione laser distanza tavola</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0510'" [formField]="formGroupObj.q0510" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--52-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica ftc sicurezza caduta forma dx</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0520'" [formField]="formGroupObj.q0520" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--53-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica ftc sicurezza caduta forma sx</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0530'" [formField]="formGroupObj.q0530" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--54-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica ftc sicurezza caduta forma diag</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0540'" [formField]="formGroupObj.q0540" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--55-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica funzionamento tacca</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0550'" [formField]="formGroupObj.q0550" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--56-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica funzionamento ciclo verticale</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0560'" [formField]="formGroupObj.q0560" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--57-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica funzionamento ciclo orizzontale</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0570'" [formField]="formGroupObj.q0570" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--58-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica funzionamento rivoltatura</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0580'" [formField]="formGroupObj.q0580" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--59-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica funzionamento spazzolatura</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0590'" [formField]="formGroupObj.q0590" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--60-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Verifica funzionamento rivoltatura / spazzolatura</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0600'" [formField]="formGroupObj.q0600" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--61-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Installazione fermacavi encoder</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0610'" [formField]="formGroupObj.q0610" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--1010-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <div style="flex: 1; ">
+          <app-form-field [type]="'text'" [label]="'Extra 1'" [name]="'q1010_t'" [formField]="formGroupObj.q1010_t" style="flex: 1; margin-right: 10px;"></app-form-field>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q1010'" [formField]="formGroupObj.q1010" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--1020-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <div style="flex: 1; ">
+          <app-form-field [type]="'text'" [label]="'Extra 2'" [name]="'q1020_t'" [formField]="formGroupObj.q1020_t" style="flex: 1; margin-right: 10px;"></app-form-field>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q1020'" [formField]="formGroupObj.q1020" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <!--1030-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <div style="flex: 1; ">
+          <app-form-field [type]="'text'" [label]="'Extra 3'" [name]="'q1030_t'" [formField]="formGroupObj.q1030_t" style="flex: 1; margin-right: 10px;"></app-form-field>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q1030'" [formField]="formGroupObj.q1030" [radioButtonList]="checkListAnswerList" style="flex: 0 0 150px;"></app-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div style="flex: 1; display: flex;">
+        <app-form-field [type]="'textarea'" [label]="'Esito Collaudo'" [name]="'esito'" [formField]="formGroupObj.esito" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'textarea'" [label]="'Collaudo conforme - note / appunti'" [name]="'note'" [formField]="formGroupObj.note" style="flex: 1;"></app-form-field>
+      </div>
+
+      <div style="flex: 1; margin-top: 5px;">
+        <button mat-raised-button color="f4ns-confirm" (click)="autodopVerbal_save()">
+          Salva
+        </button>
+      </div>
+
+    </div>
+
+  </div>

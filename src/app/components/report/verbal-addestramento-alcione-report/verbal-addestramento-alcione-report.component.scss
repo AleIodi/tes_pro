@@ -1,0 +1,255 @@
+/*##########################################################################*/
+/* CAMBIARE SOLO DEBUG, LE DIMENSIONI DI HEADER, FOOTER o BORDER (la parte custom è sotto) */
+/*##########################################################################*/
+
+$debug: 0;
+
+// @media print {
+//   .f4ns-report {
+//     display: block;
+//   }
+// }
+
+// * {
+//   -webkit-box-sizing: border-box;
+//   -moz-box-sizing: border-box;
+//   box-sizing: border-box;
+// }
+
+@media print {
+  #report-toolbar {
+    display: none !important;
+  }
+}
+
+.f4ns-report {
+  width: 100%;
+  height: 100%;
+
+  font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+}
+
+.f4ns-report-preview {
+  @if $debug == 1 {
+    background-color: lightgray;
+  }
+
+  width: 18.9cm;
+  margin: 1cm;
+
+  //border: 2px solid black;
+}
+
+.f4ns-report-page {
+  @if $debug == 1 {
+    background-color: lightyellow;
+  }
+
+  width: 18.9cm;
+  height: 27.4cm;
+  min-height: 27.4cm;
+  max-height: 27.4cm;
+  margin: 1cm;
+}
+
+.f4ns-report-header {
+  @if $debug == 1 {
+    background-color: lightblue;
+  }
+
+  /*
+  Attenzione a mantenere la regola: page >= header + body + footer
+  L'altezza del body verrà ricalcolata successivamente (quindi nel caso tenerlo inferiore)
+  */
+  height: 2.8cm;
+  max-height: 2.8cm;
+}
+
+.f4ns-report-footer {
+  @if $debug == 1 {
+    background-color: lightgreen;
+  }
+
+  /*
+  Attenzione a mantenere la regola: page >= header + body + footer
+  L'altezza del body verrà ricalcolata successivamente (quindi nel caso tenerlo inferiore)
+  */
+  height: 3.5cm;
+  max-height: 3.5cm;
+}
+
+.f4ns-report-body {
+  @if $debug == 1 {
+    background-color: lightcoral;
+  }
+
+  /*
+  Attenzione a mantenere la regola: page >= header + body + footer
+  L'altezza del body verrà ricalcolata successivamente (quindi nel caso tenerlo inferiore)
+  */
+  min-height: 10cm;
+}
+
+.f4ns-report-row {
+  @if $debug == 1 {
+    background-color: orange;
+  }
+}
+
+.f4ns-report-hidden {
+  display: none;
+}
+
+/*##########################################################################*/
+/* CUSTOM ##################################################################*/
+/*##########################################################################*/
+
+.f4ns-logo {
+  height: 75px;
+  background-image: url("../../../../assets/logos/customer.png");
+  background-origin: content-box;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 5px 5px 5px 5px;
+}
+
+.f4ns-title-big {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+
+  height: 30px;
+  min-height: 30px;
+
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.f4ns-title {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+
+  height: 50px;
+  min-height: 50px;
+
+  align-items: center;
+
+  font-weight: bold;
+  font-size: 105%;
+}
+
+.f4ns-field {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+
+  padding: 0 0 0 2px;
+
+  height: 22px;
+  min-height: 22px;
+
+  border: 0;
+
+  &.f4ns-field-title {
+    font-weight: bold;
+  }
+
+  &.f4ns-field-border {
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+  }
+
+  &.f4ns-field-center {
+    justify-content: center;
+  }
+
+  .f4ns-field-value{
+    font-weight: bold;
+    color: black;
+    margin-left: 5px;
+  }
+
+  &.f4ns-field-programma {
+    flex: 1;
+    font-size: 13px !important;
+
+    &.f4ns-field-programma-2 {
+      height: 44px !important;
+      min-height: 44px !important;
+    }
+  }
+
+  &.f4ns-field-esito {
+    flex: 0 0 150px;
+    border-left: 1px solid black;
+    padding: 0;
+    font-size: 13px !important;
+
+    span {
+      margin-left: 0;
+    }
+
+    &.f4ns-field-esito-2 {
+      height: 44px !important;
+      min-height: 44px !important;
+    }
+
+    &.f4ns-field-esito-positivo {
+      .f4ns-field-value {
+        font-weight: normal;
+      }
+    }
+
+    &.f4ns-field-esito-negativo {
+      .f4ns-field-value {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &.f4ns-field-reparto {
+    flex: 1;
+    border-right: 1px solid black;
+  }
+
+  &.f4ns-field-nome {
+    flex: 1;
+    border-right: 1px solid black;
+  }
+
+  &.f4ns-field-cognome {
+    flex: 1;
+  }
+
+  &.f4ns-field-last {
+    border-width: 1px 1px 1px 1px;
+  }
+}
+
+.f4ns-logo-sign {
+  flex: 0 0 70px;
+  height: 70px;
+  background-origin: content-box;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &.f4ns-logo-sign-1 {
+    background-image: url("../../../../assets/logos/logo-sign-1.jpg");
+  }
+
+  &.f4ns-logo-sign-2 {
+    background-image: url("../../../../assets/logos/logo-sign-2.jpg");
+  }
+
+  &.f4ns-logo-sign-3 {
+    background-image: url("../../../../assets/logos/logo-sign-3.jpg");
+  }
+
+  &.f4ns-logo-sign-4 {
+    background-image: url("../../../../assets/logos/logo-sign-4.jpg");
+  }
+}

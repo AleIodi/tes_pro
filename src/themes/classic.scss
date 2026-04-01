@@ -1,0 +1,138 @@
+@use '@angular/material' as mat;
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+@include mat.all-component-typographies();
+@include mat.elevation-classes();
+@include mat.app-background();
+
+//Doc:
+//https://material.angular.io/guide/theming#theming-your-own-components
+
+//Generated with:
+//http://mcg.mbitson.com/#!?mcgpalette0=%23c4131d&themename=mcgtheme
+
+$f4ns-palette-primary-prod: (
+  50: #f8e3e4,
+  100: #edb8bb,
+  200: #e2898e,
+  300: #d65a61,
+  400: #cd363f,
+  500: #c4131d,
+  600: #be111a,
+  700: #b60e15,
+  800: #af0b11,
+  900: #a2060a,
+  A100: #ffcdce,
+  A200: #ff9a9b,
+  A400: #ff6769,
+  A700: #ff4d50,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$f4ns-palette-primary-dev: (
+  50: #e9f1e9,
+  100: #c7dbc7,
+  200: #a2c4a2,
+  300: #7cac7c,
+  400: #609a60,
+  500: #448844,
+  600: #3e803e,
+  700: #357535,
+  800: #2d6b2d,
+  900: #1f581f,
+  A100: #99ff99,
+  A200: #66ff66,
+  A400: #33ff33,
+  A700: #1aff1a,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$f4ns-palette-accent: (
+  50: #ebebeb,
+  100: #cdcdce,
+  200: #acacad,
+  300: #8a8a8c,
+  400: #717173,
+  500: #58585a,
+  600: #505052,
+  700: #474748,
+  800: #3d3d3f,
+  900: #2d2d2e,
+  A100: #8c8cf3,
+  A200: #5e5eef,
+  A400: #1a1aff,
+  A700: #0101ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$app-primary: mat.m2-define-palette($f4ns-palette-primary-prod);
+$app-accent: mat.m2-define-palette($f4ns-palette-accent);
+$app-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$app-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $app-primary,
+    accent: $app-accent,
+    warn: $app-warn,
+  ),
+  typography: mat.m2-define-typography-config(),
+  density: 0,
+));
+
+@include mat.all-component-themes($app-theme);
+
+//#################################################################################################
+
+$app-color-confirm: green;
+$app-color-cancel: red;

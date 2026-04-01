@@ -1,0 +1,212 @@
+/*##########################################################################*/
+/* CAMBIARE SOLO DEBUG, LE DIMENSIONI DI HEADER, FOOTER o BORDER (la parte custom è sotto) */
+/*##########################################################################*/
+
+$debug: 0;
+
+// @media print {
+//   .f4ns-report {
+//     display: block;
+//   }
+// }
+
+// * {
+//   -webkit-box-sizing: border-box;
+//   -moz-box-sizing: border-box;
+//   box-sizing: border-box;
+// }
+
+@media print {
+  #report-toolbar {
+    display: none !important;
+  }
+}
+
+.f4ns-report {
+  width: 100%;
+  height: 100%;
+
+  font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+}
+
+.f4ns-report-preview {
+  @if $debug == 1 {
+    background-color: lightgray;
+  }
+
+  width: 18.9cm;
+  margin: 1cm;
+
+  //border: 2px solid black;
+}
+
+.f4ns-report-page {
+  @if $debug == 1 {
+    background-color: lightyellow;
+  }
+
+  width: 18.9cm;
+  height: 27.4cm;
+  min-height: 27.4cm;
+  max-height: 27.4cm;
+  margin: 1cm;
+}
+
+.f4ns-report-header {
+  @if $debug == 1 {
+    background-color: lightblue;
+  }
+
+  /*
+  Attenzione a mantenere la regola: page >= header + body + footer
+  L'altezza del body verrà ricalcolata successivamente (quindi nel caso tenerlo inferiore)
+  */
+  height: 2.8cm;
+  max-height: 2.8cm;
+}
+
+.f4ns-report-footer {
+  @if $debug == 1 {
+    background-color: lightgreen;
+  }
+
+  /*
+  Attenzione a mantenere la regola: page >= header + body + footer
+  L'altezza del body verrà ricalcolata successivamente (quindi nel caso tenerlo inferiore)
+  */
+  height: 3.5cm;
+  max-height: 3.5cm;
+}
+
+.f4ns-report-body {
+  @if $debug == 1 {
+    background-color: lightcoral;
+  }
+
+  /*
+  Attenzione a mantenere la regola: page >= header + body + footer
+  L'altezza del body verrà ricalcolata successivamente (quindi nel caso tenerlo inferiore)
+  */
+  min-height: 10cm;
+}
+
+.f4ns-report-row {
+  @if $debug == 1 {
+    background-color: orange;
+  }
+}
+
+.f4ns-report-hidden {
+  display: none;
+}
+
+/*##########################################################################*/
+/* CUSTOM ##################################################################*/
+/*##########################################################################*/
+
+.f4ns-logo {
+  height: 75px;
+  background: url("../../../../assets/logos/customer.png") no-repeat left;
+  background-origin: content-box;
+  background-size: contain;
+  padding: 5px 5px 5px 5px;
+}
+
+.f4ns-title-big {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+
+  height: 30px;
+  min-height: 30px;
+
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.f4ns-title {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+
+  height: 50px;
+  min-height: 50px;
+
+  align-items: center;
+
+  font-weight: bold;
+  font-size: 110%;
+}
+
+.f4ns-field {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+
+  padding: 0 0 0 2px;
+
+  height: 24px;
+  min-height: 24px;
+
+  border: 0;
+
+  &.f4ns-field-title {
+    font-weight: bold;
+  }
+
+  &.f4ns-field-border {
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+  }
+
+  &.f4ns-field-center {
+    justify-content: center;
+  }
+
+  &.f4ns-field-intervento {
+    flex: 1;
+  }
+
+  &.f4ns-field-p {
+    flex: 0 0 30px;
+    border-left: 1px solid black;
+    padding: 0;
+
+    span {
+      margin-left: 0;
+    }
+  }
+
+  &.f4ns-field-n {
+    flex: 0 0 30px;
+    border-left: 1px solid black;
+    padding: 0;
+
+    span {
+      margin-left: 0;
+    }
+  }
+
+  &.f4ns-field-s {
+    flex: 0 0 30px;
+    border-left: 1px solid black;
+    padding: 0;
+
+    span {
+      margin-left: 0;
+    }
+  }
+
+  &.f4ns-field-last {
+    border-width: 1px 1px 1px 1px;
+  }
+}
+
+.f4ns-field-value{
+  font-weight: bold;
+  color: black;
+  margin-left: 5px;
+}

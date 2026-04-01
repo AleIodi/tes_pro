@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  height: 100%;
+}
+
+.mat-mdc-radio-group{
+  display: flex;
+  flex: 1;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  .mat-mdc-radio-button{
+    flex: 1;
+    padding-top: 5px;
+  }
+}
+
+.mat-mdc-option {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled),
+.mat-mdc-option.mat-mdc-option-active,
+.mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.mat-mdc-option .mdc-list-item__primary-text {
+  color: inherit !important;
+}

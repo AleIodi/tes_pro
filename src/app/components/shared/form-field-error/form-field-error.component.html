@@ -1,0 +1,9 @@
+<div *ngIf="type != 'chip' && formField.invalid && (formField.dirty || formField.touched)" class="f4ns-form-field-error-message">
+  <mat-icon *ngIf="formField.errors.required" class="mdi mdi-alert-rhombus-outline" matTooltip="Campo obbligatorio">
+  </mat-icon>
+</div>
+
+<div *ngIf="type == 'chip'" class="f4ns-form-field-error-message">
+  <mat-icon *ngIf="dataList.length === 0" class="mdi mdi-alert-rhombus-outline" matTooltip="Campo obbligatorio">
+  </mat-icon>
+</div>

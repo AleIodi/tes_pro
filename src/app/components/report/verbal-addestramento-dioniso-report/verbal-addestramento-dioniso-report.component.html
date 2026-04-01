@@ -1,0 +1,338 @@
+<div id="report-toolbar" style="display: flex; flex-direction: column;">
+  <mat-toolbar color="accent" class="f4ns-toolbar f4ns-header" style="flex: 0 0 auto;">
+    <button *ngIf="!isPublic" mat-icon-button matTooltip="Compila" (click)="editReport()" style="margin-right: 40px;">
+      <mat-icon class="mdi mdi-file-document-edit-outline"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Stampa PDF" (click)="printPDF()">
+      <mat-icon class="mdi mdi-printer"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Esporta PDF" (click)="exportPDF()" style="margin-right: 40px;">
+      <mat-icon class="mdi mdi-file-pdf-outline"></mat-icon>
+    </button>
+    <button *ngIf="!isPublic" mat-icon-button matTooltip="Invia Email" (click)="sendMail()">
+      <mat-icon class="mdi mdi-mail"></mat-icon>
+    </button>
+    <button *ngIf="!isPublic" [disabled]="isSigned === true" mat-icon-button matTooltip="Cancella Verbale" (click)="deleteReport()">
+      <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+    </button>
+    <span style="flex: 1 1 auto"></span>
+    <!--
+    <div style="display: flex; flex-direction: column; align-items: center; line-height: 16px;" [matTooltip]="'Stato Verbale'">
+      <span>{{autodopVerbalStatus ? autodopVerbalStatus.name : ""}}</span>
+    </div>
+    -->
+  </mat-toolbar>
+</div>
+
+<div #report id="report" class="f4ns-report">
+
+  <div #preview class="f4ns-report-preview">
+    <div #header class="f4ns-report-header">
+      <div style="flex: 1; display: flex; flex-direction: row;">
+        <div class="f4ns-logo" style="flex: 0 0 450px; border-bottom: 1px solid gray;">
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end">
+          <span>L'innovazione al servizio della tradizione</span>
+        </div>
+      </div>
+    </div>
+
+    <div #body class="f4ns-report-body">
+
+      <!-- IL BODY DEVE CONTENERE SOLO ELEMENTI CON CLASSE f4ns-report-row -->
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;" style="margin: 10px 0 10px 0;">
+        <div class="f4ns-title-big" style="justify-content: center"><span>VERBALE DI AVVENUTO ADDESTRAMENTO ALL’USO DI MACCHINE CARICA/SCARICA</span></div>
+        <div class="f4ns-title-big" style="justify-content: center"><span class="f4ns-field-value" style="font-weight: normal;">Modello: {{machine?.name.split(" ")[0]}}</span></div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-title"><span>DATI CLIENTE:</span></div>
+        <div class="f4ns-field f4ns-field-border"><span>Ragione Sociale:</span><span class="f4ns-field-value">{{consumer?.name}}</span></div>
+        <div class="f4ns-field f4ns-field-border"><span>Indirizzo sede legale e/o operativa:</span><span class="f4ns-field-value">{{consumer?.address + ", " + consumer?.city}}</span></div>
+        <div class="f4ns-field f4ns-field-border"><span>C.F.-P.IVA:</span><span class="f4ns-field-value">{{consumer?.vat}}</span></div>
+        <div class="f4ns-field f4ns-field-border"><span>E-Mail:</span><span class="f4ns-field-value">{{consumer?.email}}</span></div>
+        <div class="f4ns-field f4ns-field-border f4ns-field-last"><span>Data:</span><span class="f4ns-field-value">{{autodopVerbalDate}}</span></div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-title"><span>DATI TECNICO ISTRUTTORE:</span></div>
+        <div class="f4ns-field f4ns-field-border"><span>Nome e Cognome:</span><span class="f4ns-field-value">{{user?.name_first + " " + user?.name_last}}</span></div>
+        <div class="f4ns-field f4ns-field-border f4ns-field-last"><span>Reparto installazione macchine:</span><span class="f4ns-field-value">{{autodopVerbalDataObj["magazzino"]}}</span></div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: row; margin-top: 20px; height: 130px; min-height: 130px; border: 1px solid black;">
+        <div class="f4ns-field" style="flex: 0 0 100px; display: flex; flex-direction: row; height: 130px; min-height: 130px; justify-content: center; align-items: center; border-right: 1px solid black;">
+          <div class="f4ns-field f4ns-field-center f4ns-logo-sign f4ns-logo-sign-1">
+          </div>
+        </div>
+        <div class="f4ns-field" style="flex: 1; display: flex; flex-direction: column; margin-top: 3px;">
+          <div class="f4ns-field f4ns-field-title" style="flex: 0 0 24px; border-bottom: 0;">
+            <div class="f4ns-field" style="border-bottom: 0;"><span>AVVERTENZE SUI RISCHI RESIDUI</span></div>
+          </div>
+          <div class="f4ns-field f4ns-field-last" style="align-items: flex-start; border-top: 0;">
+            <div class="f4ns-field" style="height: 100%; align-items: baseline; white-space: break-spaces;"><span>Pericolo di caduta del materiale in prossimità del passaggio delle macchine di magazzino per il carico delle forme.
+              Prestare attenzione durante il caricamento e lo scaricamento del materiale. Il materiale potrebbe accidentalmente cadere dall’alto se non movimentato in modo corretto.
+              Intervenire con l'utilizzo di casco, occhiali e indumenti protettivi e seguendo le istruzioni riportate nel presente manuale e nei manuali dei singoli componenti.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: row; margin-top: 20px; height: 110px; min-height: 110px; border: 1px solid black;">
+        <div class="f4ns-field" style="flex: 0 0 100px; display: flex; flex-direction: row; height: 110px; min-height: 110px; justify-content: center; align-items: center; border-right: 1px solid black;">
+          <div class="f4ns-field f4ns-field-center f4ns-logo-sign f4ns-logo-sign-2">
+          </div>
+        </div>
+        <div class="f4ns-field" style="flex: 1; display: flex; flex-direction: column; margin-top: 3px;">
+          <div class="f4ns-field f4ns-field-title" style="flex: 0 0 24px; border-bottom: 0;">
+            <div class="f4ns-field" style="border-bottom: 0;"><span>DIVIETO DI ACCESSO A PERSONALE NON AUTORIZZATO</span></div>
+          </div>
+          <div class="f4ns-field f4ns-field-last" style="align-items: flex-start; border-top: 0;">
+            <div class="f4ns-field" style="height: 100%; align-items: baseline; white-space: break-spaces;"><span>Pericolo di caduta forme dall’alto in corsie confinanti.
+              Prima di iniziare le procedure di carico/scarico forme dalle scaffalature, occorre transennare le corsie confinanti con quelle soggette al passaggio delle macchine.
+              È vietato l’accesso alle corsie confinanti a tutti gli operatori del magazzino.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: row; margin-top: 20px; height: 150px; min-height: 150px; border: 1px solid black;">
+        <div class="f4ns-field" style="flex: 0 0 100px; display: flex; flex-direction: row; height: 150px; min-height: 150px; justify-content: center; align-items: center; border-right: 1px solid black;">
+          <div class="f4ns-field f4ns-field-center f4ns-logo-sign f4ns-logo-sign-3">
+          </div>
+        </div>
+        <div class="f4ns-field" style="flex: 1; display: flex; flex-direction: column; margin-top: 3px;">
+          <div class="f4ns-field f4ns-field-title" style="flex: 0 0 24px; border-bottom: 0;">
+            <div class="f4ns-field" style="border-bottom: 0;"><span>PERICOLO DI INVESTIMENTO</span></div>
+          </div>
+          <div class="f4ns-field f4ns-field-last" style="align-items: flex-start; border-top: 0;">
+            <div class="f4ns-field" style="height: 100%; align-items: baseline; white-space: break-spaces;"><span>Pericolo di investimento dovuto alla presenza delle macchine per la movimentazione, carico-scarico, spazzolatura delle forme durante il ciclo di lavoro e il funzionamento delle stesse.
+              Prestare attenzione al transito di carrelli elevatori e veicoli industriali
+              Nello stazionare nelle zone di transito sussiste il pericolo di essere travolti.
+              Lasciare sempre sgombra la zona di transito e spostarsi il prima possibile.
+              Segnalare e evidenziare accuratamente la zona di utilizzo delle macchine di magazzino.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: row; margin-top: 20px; height: 130px; min-height: 130px; border: 1px solid black;">
+        <div class="f4ns-field" style="flex: 0 0 100px; display: flex; flex-direction: row; height: 130px; min-height: 130px; justify-content: center; align-items: center; border-right: 1px solid black;">
+          <div class="f4ns-field f4ns-field-center f4ns-logo-sign f4ns-logo-sign-4">
+          </div>
+        </div>
+        <div class="f4ns-field" style="flex: 1; display: flex; flex-direction: column; margin-top: 3px;">
+          <div class="f4ns-field f4ns-field-title" style="flex: 0 0 24px; border-bottom: 0;">
+            <div class="f4ns-field" style="border-bottom: 0;"><span>PERICOLO ENERGIA ELETTRICA</span></div>
+          </div>
+          <div class="f4ns-field f4ns-field-last" style="align-items: flex-start; border-top: 0;">
+            <div class="f4ns-field" style="height: 100%; align-items: baseline; white-space: break-spaces;"><span>Pericolo di elettrocuzione a causa del contatto con parti in tensione. Pericolo di scariche elettriche.
+              Prestare attenzione nell'accesso ai quadri elettrici perchè sussiste il pericolo di scariche elettriche che possono causare gravi infortuni
+              Accedere ai quadri elettrici solo dopo avere disconnesso l'alimentazione elettrica e utilizzando gli idonei DPI.
+              L’accesso ai quadri elettrici è consentito solo agli operatori autorizzati.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f4ns-report-row" style="height: 10px; min-height: 10px;">&nbsp;</div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-title"><span>PROGRAMMA DI ADDESTRAMENTO (RIF. ORDINE N.{{job?.code}}):</span></div>
+        <div class="f4ns-field f4ns-field-border f4ns-field-title">
+          <div class="f4ns-field f4ns-field-center f4ns-field-programma"><span>PROGRAMMA</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito"><span>ESITO</span></div>
+        </div>
+      </div>
+      <!--1-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Spiegazione dei comandi</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0010'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0010"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0010"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--2-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Spiegazione inserimento in corsia</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0020'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0020"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0020"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--3-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Individuazione dei dispositivi di sicurezza</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0030'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0030"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0030"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--4-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Regolazioni meccaniche</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0040'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0040"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0040"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--5-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Spiegazione sull’utilizzo della macchina in modalità “manuale”</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0050'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0050"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0050"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--6-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma f4ns-field-programma-2"><span>Spiegazione sull’utilizzo della macchina in modalità “manuale - avanzato”<br/>(esclusione delle sicurezze tramite password temporanea)</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito f4ns-field-esito-2" [ngClass]="autodopVerbalDataObj['q0060'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0060"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0060"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--7-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Spiegazione sull’utilizzo della macchina in modalità “automatica”</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0070'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0070"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0070"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--8-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Regolazione dei parametri di lavoro (offset pinza, offset carro, offset introduzione)</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0080'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0080"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0080"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--9-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Prova pratica generale</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0090'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0090"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0090"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--10-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Simulazione insorgenza errori e loro risoluzione</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0100'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0100"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0100"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--11-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma"><span>Note comportamentali per l’operatore per un utilizzo in sicurezza della macchina</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q0110'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0110"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0110"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--12-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma f4ns-field-programma-2"><span>Verifica del posizionamento della pinza in estrazione prima di effettuare<br/>lo spostamento o la movimentazione manuale per il cambio corsia</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito f4ns-field-esito-2" [ngClass]="autodopVerbalDataObj['q0120'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q0120"] == "P" ? "Positivo" : (autodopVerbalDataObj["q0120"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--101-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma f4ns-field-programma"><span>{{autodopVerbalDataObj["q1010_t"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q1010'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q1010"] == "P" ? "Positivo" : (autodopVerbalDataObj["q1010"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--102-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border">
+          <div class="f4ns-field f4ns-field-programma f4ns-field-programma"><span>{{autodopVerbalDataObj["q1020_t"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q1020'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q1020"] == "P" ? "Positivo" : (autodopVerbalDataObj["q1020"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+      <!--103-->
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border f4ns-field-last">
+          <div class="f4ns-field f4ns-field-programma f4ns-field-programma"><span>{{autodopVerbalDataObj["q1030_t"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-esito f4ns-field-esito" [ngClass]="autodopVerbalDataObj['q1030'] == 'P' ? 'f4ns-field-esito-positivo' : 'f4ns-field-esito-negativo'"><span></span><span class="f4ns-field-value">{{autodopVerbalDataObj["q1030"] == "P" ? "Positivo" : (autodopVerbalDataObj["q1030"] == "N" ? "Negativo" : "")}}</span></div>
+        </div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column; margin-top: 20px; min-height: 80px;">
+        <div class="f4ns-field f4ns-field-border f4ns-field-title" style="flex: 0 0 24px; border-bottom: 0;">
+          <div class="f4ns-field" style="font-style: italic; border-bottom: 0;"><span>Note:</span></div>
+        </div>
+        <div class="f4ns-field f4ns-field-border f4ns-field-last" style="align-items: flex-start; border-top: 0;">
+          <div class="f4ns-field" style="height: 100%; align-items: baseline; white-space: break-spaces;"><span>{{autodopVerbalDataObj["note"]}}</span></div>
+        </div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-title"><span>ELENCO PARTECIPANTI ALL’ADDESTRAMENTO:</span></div>
+        <div class="f4ns-field f4ns-field-border f4ns-field-title">
+          <div class="f4ns-field f4ns-field-center f4ns-field-reparto"><span>REPARTO</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-nome"><span>NOME</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-cognome"><span>COGNOME</span></div>
+        </div>
+      </div>
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border f4ns-field-title">
+          <div class="f4ns-field f4ns-field-center f4ns-field-reparto" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0010_1"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-nome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0010_2"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-cognome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0010_3"]}}</span></div>
+        </div>
+      </div>
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border f4ns-field-title">
+          <div class="f4ns-field f4ns-field-center f4ns-field-reparto" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0020_1"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-nome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0020_2"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-cognome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0020_3"]}}</span></div>
+        </div>
+      </div>
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border f4ns-field-title">
+          <div class="f4ns-field f4ns-field-center f4ns-field-reparto" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0030_1"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-nome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0030_2"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-cognome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0030_3"]}}</span></div>
+        </div>
+      </div>
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border f4ns-field-title">
+          <div class="f4ns-field f4ns-field-center f4ns-field-reparto" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0040_1"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-nome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0040_2"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-cognome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0040_3"]}}</span></div>
+        </div>
+      </div>
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border f4ns-field-title">
+          <div class="f4ns-field f4ns-field-center f4ns-field-reparto" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0050_1"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-nome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0050_2"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-cognome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0050_3"]}}</span></div>
+        </div>
+      </div>
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="f4ns-field f4ns-field-border f4ns-field-title f4ns-field-last">
+          <div class="f4ns-field f4ns-field-center f4ns-field-reparto" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0060_1"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-nome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0060_2"]}}</span></div>
+          <div class="f4ns-field f4ns-field-center f4ns-field-cognome" style="font-weight: normal;"><span>{{autodopVerbalDataObj["p0060_3"]}}</span></div>
+        </div>
+      </div>
+
+      <div class="f4ns-report-row" style="flex: 1; display: flex; flex-direction: column; margin-top: 20px; border: 1px solid black; padding: 5px;">
+        <div class="f4ns-title" style="font-style: italic; font-size: 13px;">
+          <span>
+            Conclusioni:<br/>
+            Gli operatori-utilizzatori delle macchine del magazzino {{autodopVerbalDataObj["magazzino"]}} risultano essere informati sui rischi residui presenti all’interno del magazzino e addestrati all’uso in sicurezza della macchina.<br/>
+            Sono in grado di effettuare la conduzione della macchina nelle varie modalità previste, di risolvere eventuali anomalie presenti sulla macchina e praticare le regolazioni meccaniche principali della macchina.
+          </span></div>
+      </div>
+    </div>
+
+    <div #footer class="f4ns-report-footer">
+      <div style="flex: 1; display: flex; flex-direction: column; margin-top: 20px;">
+        <div class="f4ns-field">
+          <div class="f4ns-field" style="justify-content: flex-end;"><span>{{destination?.city}}</span></div>
+        </div>
+        <div class="f4ns-field">
+          <div class="f4ns-field" style="justify-content: flex-end;"><span>Data: {{autodopVerbalDate}}</span></div>
+        </div>
+        <div class="f4ns-field">
+          <div class="f4ns-field" style="justify-content: flex-end; height: 35px; min-height: 35px; "><app-signature *ngIf="user" [width]="200" [height]="50" [readOnly]="true" [data]="user.signature"></app-signature></div>
+        </div>
+      </div>
+    </div>
+
+    <div #page class="f4ns-report-page f4ns-report-hidden"> </div>
+  </div>
+
+</div>

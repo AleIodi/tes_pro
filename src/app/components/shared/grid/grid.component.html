@@ -1,0 +1,139 @@
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; width:100%;">
+
+  <mat-toolbar color="accent" class="f4ns-toolbar f4ns-header" style="flex: 0 0 auto;">
+    <ng-container *ngFor="let toolbarItem of (toolbarItemList | async)">
+      <button *ngIf="!toolbarItem.hidden && toolbarItem.isUserGroupValid == null || toolbarItem.isUserGroupValid" mat-icon-button matTooltip="{{toolbarItem.label}}" (click)="onToolbarItemButtonClick(toolbarItem)">
+        <mat-icon class="{{toolbarItem.icon}}"></mat-icon>
+      </button>
+    </ng-container>
+  </mat-toolbar>
+
+  <mat-table [dataSource]="matTableDataSource" matSort class="f4ns-table">
+    <!--  -->
+    <!-- RIGHE TITOLO COLONNA e RIGHE CELLE CON VALORI -->
+    <!--  -->
+    <ng-container *ngFor="let column of (columnList | async)" matColumnDef="{{column.field}}">
+      <ng-container *ngIf="!column.type;then field"></ng-container>
+      <ng-container *ngIf="column.type==='select';then select"></ng-container>
+      <ng-container *ngIf="column.type==='button';then button"></ng-container>
+      <ng-container *ngIf="column.type==='icon';then icon"></ng-container>
+
+      <!-- Template per i field dell'header e del body -->
+      <ng-template #field>
+        <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="{'is-super' : column.isSuper }" [disabled]="column.disableSorting" [style.min-width]="column.width=='100%'?'200px':column.width" [style.max-width]="column.width" [style.width]="column.width">
+          <div class="column-header-content">
+            <span> {{column.label}}</span>
+          </div>
+        </mat-header-cell>
+
+        <mat-cell #fieldContainer *matCellDef="let element" [ngClass]="{'is-super' : column.isSuper }" [style.min-width]="column.width=='100%'?'200px':column.width" [style.max-width]="column.width" [style.width]="column.width" [ngStyle]="column.styleObj">
+          <ng-container *ngIf="column.editable">
+            <input matInput [attr.type]="column.dataType!=null?column.dataType:'text'" autocomplete="off" value="{{dataRendering(element, column)}}">
+          </ng-container>
+
+          <ng-container *ngIf="!column.editable">
+            <span [matTooltipDisabled]="!isShowTooltip(fieldContainer)" [matTooltip]="dataRendering(element, column)">{{dataRendering(element, column)}}</span>
+          </ng-container>
+        </mat-cell>
+      </ng-template>
+
+      <!-- Template per i checkbox -->
+      <ng-template #select>
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null; rowSelect()" [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-template>
+
+      <!-- Template per i bottoni -->
+      <ng-template #button>
+        <ng-container stickyEnd>
+          <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="{'is-super' : column.isSuper }" class="mat-cell-button" [disabled]="true" [style.min-width]="column.width=='100%'?'200px':column.width" [style.max-width]="column.width" [style.width]="column.width" [style.right]="column.button_right + 'px'">
+            <div class="column-header-content">
+              <span></span>
+            </div>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngClass]="{'is-super' : column.isSuper }" class="mat-cell-button" [style.min-width]="column.width=='100%'?'200px':column.width" [style.max-width]="column.width" [style.width]="column.width" [style.right]="column.button_right + 'px'">
+            <button mat-icon-button matTooltip="{{column.label}}" (click)="onColumnButtonClick(column, element)" class="grid-button" [disabled]="isButtonDisabled(column, element)">
+              <mat-icon class="{{column.icon}} grid-icon-button"></mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+      </ng-template>
+
+      <!-- Template per le icone -->
+      <ng-template #icon>
+        <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="column.disableSorting" [style.min-width]="column.width=='100%'?'200px':column.width" [style.max-width]="column.width" [style.width]="column.width">
+          <div class="column-header-content">
+            <span> {{column.label}}</span>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" [style.min-width]="column.width=='100%'?'200px':column.width" [style.max-width]="column.width" [style.width]="column.width" style="text-align: center;">
+          <mat-icon color="accent" matTooltip="{{column.iconObj[(dataRendering(element, column)?dataRendering(element, column):'default')].label}}" class="{{column.iconObj[(dataRendering(element, column)?dataRendering(element, column):'default')].icon}} grid-icon"></mat-icon>
+        </mat-cell>
+      </ng-template>
+    </ng-container>
+
+    <!--  -->
+    <!-- RIGHE FILTRI -->
+    <!--  -->
+    <ng-container *ngFor="let column of (columnList | async)" matColumnDef="{{column.field + '_filter'}}">
+      <ng-container *ngIf="!column.type;then field"></ng-container>
+      <ng-container *ngIf="column.type==='select';then select"></ng-container>
+      <ng-container *ngIf="column.type==='button';then button"></ng-container>
+      <ng-container *ngIf="column.type==='icon';then icon"></ng-container>
+
+      <!-- Template per i filtri -->
+      <ng-template #field>
+        <mat-header-cell *matHeaderCellDef [ngClass]="{'filter-applied' : filterValueList[column.field] ? true : false, 'is-super' : column.isSuper}" [style.min-width]="column.width=='100%'?'200px':column.width" [style.max-width]="column.width" [style.width]="column.width" class="column-filter-cell">
+          <div class="column-filter-content">
+            <i class="mdi mdi-filter" matTooltip="Inserire filtro nel campo"></i>
+            <input matInput (keydown.enter)="applyFilter()" type="text" [formControl]="filterList[column.field]" [ngClass]="{'filter-applied' : filterValueList[column.field] ? true : false, 'is-super' : column.isSuper}" placeholder="" autocomplete="off">
+          </div>
+        </mat-header-cell>
+      </ng-template>
+
+      <!-- Template per i checkbox -->
+      <ng-template #select>
+        <mat-header-cell *matHeaderCellDef class="column-filter-cell">
+          <mat-icon class="mdi mdi-filter-remove grid-icon-button" (click)="clearFilterList()" matTooltip="Cancella filtri"></mat-icon>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> </mat-cell>
+      </ng-template>
+
+      <!-- Template per i bottoni -->
+      <ng-template #button>
+        <ng-container stickyEnd>
+          <mat-header-cell *matHeaderCellDef [ngClass]="{'is-super' : column.isSuper }" class="mat-cell-button"> </mat-header-cell>
+          <mat-cell *matCellDef="let row" [ngClass]="{'is-super' : column.isSuper }" class="mat-cell-button"> </mat-cell>
+        </ng-container>
+      </ng-template>
+
+      <!-- Template per le icone -->
+      <ng-template #icon>
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let row"> </mat-cell>
+      </ng-template>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnNameList"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="getFilterNameArr()"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnNameList;" [ngClass]="{'highlight': selectedRowIndex == row.position, 'checked':selection.isSelected(row)}"> </mat-row>
+  </mat-table>
+
+  <!-- Progress spinner -->
+  <div *ngIf="isLoading" style="position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+    <mat-progress-spinner diameter="60" color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <ng-container *ngIf="enablePagination && gridPaginationSettings">
+    <mat-paginator [pageSize]="gridPaginationSettings.pageSize" [pageSizeOptions]="gridPaginationSettings.pageSizeOptions" [showFirstLastButtons]="gridPaginationSettings.showFirstLastButtons" class="f4ns-footer">
+    </mat-paginator>
+  </ng-container>
+
+</div>

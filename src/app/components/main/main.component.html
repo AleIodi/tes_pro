@@ -1,0 +1,95 @@
+<mat-sidenav-container class="sidenav-container" autosize>
+  <mat-sidenav #drawer class="sidenav" autosize [disableClose]="!(isHandset$ | async)" [style]="hideMenu ? 'display: none;' : ''" [fixedInViewport]="(isHandset$ | async) === true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <ng-container *ngIf="!hideMenu">
+      <mat-toolbar class="f4ns-menu-logo" (click)="(!isHandset || drawer.close()) && logo_Click()"></mat-toolbar>
+      <mat-nav-list class="f4ns-menu">
+        <span style="position: absolute; font-size: 9px; top: 0; left: 5px; font-size: 10px; color: #666666; z-index: 4; cursor: pointer;" (click)="openAbout()">{{appVersion}}</span>
+        <ng-container *ngFor="let menu of menuList">
+          <ng-container *ngIf="menu.isUserGroupValid == null || menu.isUserGroupValid == true">
+            <a mat-mdc-list-item (click)="toggleMenu(menu.code)" class="f4ns-menu-parent">
+              <div matLine>
+                <div class="f4ns-menu-children-icon-container" [ngClass]="appIsProduction ? 'env-prod' : 'env-dev'">
+                  <mat-icon mat-list-icon class="{{menu.icon}}"></mat-icon>
+                </div>
+                <div class="f4ns-menu-children-span-container">
+                  <span>{{menu.label}}{{menu.code=="main" && user && user.username ? (": " + user.username) : ""}}</span>
+                </div>
+              </div>
+            </a>
+            <div [@openClose]="this.menuOpenedName==menu.code ? 'open' : 'closed'" class="f4ns-menu-children-container">
+              <mat-nav-list class="f4ns-menu">
+                <ng-container *ngFor="let menuSub of menu.menuList">
+                  <ng-container *ngIf="menuSub.isUserGroupValid == null || menuSub.isUserGroupValid == true">
+                    <a mat-mdc-list-item [routerLink]="menuSub.route" [routerLinkActive]="['is-active']" class="f4ns-menu-child" [ngClass]="appIsProduction ? 'env-prod' : 'env-dev'" (click)="(!isHandset || drawer.close()) && navigateOrRefresh(menuSub.route)">
+                      <div matLine>
+                        <div class="f4ns-menu-children-icon-container" [ngClass]="appIsProduction ? 'env-prod' : 'env-dev'">
+                          <mat-icon mat-list-icon class="{{menuSub.icon}}"></mat-icon>
+                        </div>
+                        <div class="f4ns-menu-children-span-container">
+                          <span>{{menuSub.label}}</span>
+                        </div>
+                      </div>
+                    </a>
+                  </ng-container>
+                </ng-container>
+              </mat-nav-list>
+            </div>
+          </ng-container>
+        </ng-container>
+      </mat-nav-list>
+      <mat-toolbar class="f4ns-menu-copyright">4Next Solutions © {{dateYear}}</mat-toolbar>
+    </ng-container>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="f4ns-flex-parent">
+      <mat-toolbar *ngIf="!hideToolbar" class="f4ns-toolbar" [ngClass]="appIsProduction ? 'env-prod' : 'env-dev'" style="flex: 0 0 auto">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon class="mdi mdi-menu" aria-label="Side nav toggle icon"></mat-icon>
+        </button>
+        <span>{{routerTitle}}</span>
+        <span style="flex: 1 1 auto"></span>
+        <!-- Bottone Furgone -->
+        <button mat-button
+        style="margin-right: 16px; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; border-radius: 6px; border: 2px solid; transition: all 0.2s; min-width: 160px;"
+        [style.border-color]="!currentTruck ? '#FFFFFF' : truckDateWarning ? '#ffd740' : '#b9f6ca'"
+        [style.background]="!currentTruck ? 'rgba(255,255,255,0.15)' : truckDateWarning ? 'rgba(255,215,64,0.15)' : 'rgba(185,246,202,0.15)'"
+        [matTooltip]="!currentTruck ? 'Seleziona un furgone' : truckDateWarning ? 'Furgone selezionato da più di 24h — Cambia furgone?' : 'Cambia furgone'"
+        (click)="openTruckForm()">
+          <mat-icon
+          style="font-size: 22px; width: 22px; height: 22px; margin-right: 8px;"
+          [style.color]="!currentTruck ? '#FFFFFF' : truckDateWarning ? '#ffd740' : '#b9f6ca'"
+          [class]="!currentTruck||truckDateWarning ? 'mdi mdi-truck' : 'mdi mdi-truck-check'">
+          </mat-icon>
+          <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2;">
+            <!-- Nome Furgone -->
+            <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.5px;"
+            [style.color]="!currentTruck ? '#FFFFFF' : truckDateWarning ? '#ffd740' : '#b9f6ca'">
+              {{ currentTruck ? currentTruck.name : 'Nessun furgone' }}
+            </span>
+            <!-- Data o Sottotitolo -->
+            <span style="font-size: 10px; white-space: nowrap;"
+            [style.color]="!currentTruck ? '#FFFFFF' : truckDateWarning ? '#ffd740' : '#FFFFFF'"
+            [style.font-weight]="(!currentTruck || truckDateWarning) ? 'bold' : 'normal'">
+              <ng-container *ngIf="!currentTruck">Tocca per selezionare</ng-container>
+              <ng-container *ngIf="currentTruck">
+                <span *ngIf="truckDateWarning">⚠ </span>{{ currentTruckDate?.substring(8,10) }}/{{ currentTruckDate?.substring(5,7) }} {{ currentTruckDate?.substring(11,16) }}
+              </ng-container>
+            </span>
+          </div>
+        </button>
+        <div style="display: flex; flex-direction: column; align-items: center; line-height: 16px;" [ngStyle]="{'color': lastUpdateWarning?'#FAFAFA':'#FAFAFA'}" [matTooltip]="'Ultimo aggiornamento'">
+          <span style="font-size:12px;">{{syncLastUpdate!=null?syncLastUpdate.substring(0,10):''}}</span>
+          <span style="font-size:14px;">{{syncLastUpdate!=null?syncLastUpdate.substring(11):''}}</span>
+        </div>
+        <mat-slide-toggle class="switch" style="margin-left: 8px;" [color]="'accent'" [checked]="syncAutoEnabled" [matTooltip]="'Sincronizzazione automatica'" (change)="syncAutoEnabled_Change($event)"></mat-slide-toggle>
+        <button mat-icon-button [disabled]="syncInProgress || (!((isOnline$ | async)!=null && (isOnline$ | async)))" (click)="manualSync_Click()">
+          <mat-icon [ngClass]="syncInProgress?'mdi mdi-spin mdi-refresh':'mdi mdi-cloud-sync'" matTooltip="Sincronizza ora"></mat-icon>
+        </button>
+        <span class="dot" [ngClass]="((isOnline$ | async)!=null && (isOnline$ | async) && !lastUpdateWarning) ? 'green' : ((isOnline$ | async)!=null && (isOnline$ | async)) ? 'yellow' : 'red'" [matTooltip]="((isOnline$ | async)!=null && (isOnline$ | async) && !lastUpdateWarning) ? 'Online' : ((isOnline$ | async)!=null && (isOnline$ | async)) ? 'Non aggiornato' : 'Offline'"></span>
+      </mat-toolbar>
+      <!-- <mat-toolbar *ngIf="showToolbar" color="primary" class="f4ns-toolbar" style="flex: 0 0 auto"><span>{{routerTitle}}</span></mat-toolbar> -->
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

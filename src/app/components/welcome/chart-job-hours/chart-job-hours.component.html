@@ -1,0 +1,9 @@
+<canvas *ngIf="chartData" baseChart
+  [data]="chartData"
+  [options]="chartOptions"
+  [legend]="chartLegend"
+  [type]="chartType"
+  (chartHover)="chartHovered($event)"
+  (chartClick)="chartClicked($event)"
+>
+</canvas>

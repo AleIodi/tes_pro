@@ -1,0 +1,90 @@
+<mat-toolbar color="accent" class="f4ns-toolbar f4ns-header">
+  <button mat-stroked-button matTooltip="Oggi" (click)="today()">Oggi</button>
+
+  <button mat-icon-button matTooltip="Precedente" (click)="prev()">
+    <mat-icon class="mdi mdi-chevron-left"></mat-icon>
+  </button>
+
+  <button mat-icon-button matTooltip="Successivo" (click)="next()">
+    <mat-icon class="mdi mdi-chevron-right"></mat-icon>
+  </button>
+
+  <label *ngIf="title">{{title}}</label>
+
+  <span style="flex: 1 1 auto;"></span>
+
+</mat-toolbar>
+
+<!--  -->
+<!-- CALENDAR -->
+<!--  -->
+<div style="flex: 1; display: flex; flex-direction: column;">
+  <div class="calendar-container">
+    <full-calendar #calendar [options]="calendarOptionsObj"></full-calendar>
+  </div>
+</div>
+
+<!--  -->
+<!-- MAT_MENU -->
+<!--  -->
+<div style="visibility: hidden; position: fixed" [style.left]="eventContextMenuPosition.x" [style.top]="eventContextMenuPosition.y" [matMenuTriggerFor]="calendarServiceTaskEventContextMenu">
+</div>
+<mat-menu #calendarServiceTaskEventContextMenu="matMenu">
+  <ng-template matMenuContent let-item="eventInfo">
+    <!-- SERVICE_TASK -->
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_task'" mat-menu-item (click)="serviceTask_openReport(item)">
+      <mat-icon class="mdi mdi-file-pdf-outline"></mat-icon>
+      <span>Report</span>
+    </button>
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_task'" [disabled]="!serviceTask_isEditable(item)" mat-menu-item (click)="serviceTask_addServiceOperation(item)">
+      <mat-icon class="mdi mdi-progress-wrench"></mat-icon>
+      <span>Aggiungi Operazione</span>
+    </button>
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_task'" [disabled]="!serviceTask_isEditable(item)" mat-menu-item (click)="serviceTask_addServiceTrip(item)">
+      <mat-icon class="mdi mdi-car-hatchback"></mat-icon>
+      <span>Aggiungi Viaggio</span>
+    </button>
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_task'" [disabled]="!serviceTask_isEditable(item)" mat-menu-item (click)="serviceTask_addServiceExtra(item)">
+      <mat-icon class="mdi mdi-currency-eur"></mat-icon>
+      <span>Aggiungi Spesa</span>
+    </button>
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_task'" [disabled]="!serviceTask_isEditable(item)" mat-menu-item (click)="serviceTask_addServiceTaskProduct(item)">
+      <mat-icon class="mdi mdi-buffer"></mat-icon>
+      <span>Aggiungi Prodotto</span>
+    </button>
+
+    <!-- SERVICE_OPERATION -->
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_operation'" [disabled]="!serviceOperation_isEditable(item)" mat-menu-item (click)="serviceOperation_clone(item)">
+      <mat-icon class="mdi mdi-content-copy"></mat-icon>
+      <span>Clona Operazione</span>
+    </button>
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_operation'" [disabled]="!serviceOperation_isEditable(item)" mat-menu-item (click)="serviceOperation_delete(item)">
+      <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+      <span>Cancella Operazione</span>
+    </button>
+
+    <!-- SERVICE_TRIP -->
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_trip'" [disabled]="!serviceTrip_isEditable(item)" mat-menu-item (click)="serviceTrip_clone(item)">
+      <mat-icon class="mdi mdi-content-copy"></mat-icon>
+      <span>Clona Viaggio</span>
+    </button>
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_trip'" [disabled]="!serviceTrip_isEditable(item)" mat-menu-item (click)="serviceTrip_delete(item)">
+      <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+      <span>Cancella Viaggio</span>
+    </button>
+
+    <!-- SERVICE_Call -->
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_call'" [disabled]="!serviceCall_isSchedulable(item)" mat-menu-item (click)="serviceCall_createTaskAndOperation(item)">
+      <mat-icon class="mdi mdi-progress-wrench"></mat-icon>
+      <span>Crea Intervento</span>
+    </button>
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_call'" [style.visibility]="!serviceCall_isSendMailVisible(item)" mat-menu-item (click)="serviceCall_openSendMailForm(item)">
+      <mat-icon class="mdi mdi-email"></mat-icon>
+      <span>Invia Email</span>
+    </button>
+    <button *ngIf="item.event.extendedProps.data.serviceType == 'service_call'" [disabled]="!serviceCall_isSchedulable(item)" mat-menu-item (click)="serviceCall_deleteSchedulation(item)">
+      <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+      <span>Cancella Appuntamento</span>
+    </button>
+  </ng-template>
+</mat-menu>

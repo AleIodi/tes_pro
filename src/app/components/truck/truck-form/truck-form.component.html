@@ -1,0 +1,29 @@
+<form #f4nsForm="ngForm" [formGroup]="formGroup">
+  <div *ngIf="hasPending"
+    style="display: flex; align-items: center; gap: 8px; background: rgba(255,152,0,0.12); border: 1px solid #ff9800; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px;">
+    <span style="font-size: 13px; color: #e65100; line-height: 18px;">
+      <strong>Completa i rapportini e sincronizza prima di cambiare furgone.</strong>
+    </span>
+  </div>
+
+  <div style="flex: 1; display: flex; flex-direction: row;">
+    <app-form-field [type]="'autocomplete'" [label]="'Furgone'" [name]="'truck'" [formField]="formGroupObj.truck" [autocompleteObj]="truckAutocompleteObj" style="flex: 1;"></app-form-field>
+  </div>
+
+  <div class="form-button-group" style="flex: 1;">
+    <button mat-raised-button color="f4ns-confirm" (click)="save()" [disabled]="confirmClicked">
+      {{ hasPending ? 'Aggiorna Giacenze' : 'Seleziona' }}
+    </button>
+
+    <button mat-raised-button color="f4ns-action" style="margin-left: 10px;" (click)="dialogRef.close()">
+      Annulla
+    </button>
+
+    <ng-container *ngIf="currentTruck">
+      <button mat-raised-button color="f4ns-cancel" matTooltip="Rimuovi Furgone" style="float: right;" (click)="remove()" [disabled]="hasPending">
+        <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+      </button>
+    </ng-container>
+  </div>
+
+</form>

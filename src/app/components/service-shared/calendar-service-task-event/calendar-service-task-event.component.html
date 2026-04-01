@@ -1,0 +1,25 @@
+<div *ngIf="this.showEvents" class="f4ns-event-service-task">
+  <div *ngFor="let serviceTaskEvent of this.serviceTaskEventList; let i = index" [ngStyle]="{'background': serviceTaskEvent.color, 'color': serviceTaskEvent.textColor }" [ngClass]="{'f4ns-event-service-task-slot-enabled': serviceTaskEvent.serviceOperationList.length > 0}" class="f4ns-event-service-task-slot" (click)="eventClick(serviceTaskEvent)">
+    <div class="f4ns-event-service-task-slot-text"><span >{{ serviceTaskEvent.serviceOperationList_workHours + "h - " }}{{ serviceTaskEvent.job ? serviceTaskEvent?.job?.code : ""  }}</span></div>
+
+    <div *ngIf="serviceTaskEvent.hasServiceCall">
+      <span class="mdi mdi-18px mdi-ticket-account" matTooltip="Creato da Ticket"></span>
+    </div>
+    &nbsp;
+    <div *ngIf="!serviceTaskEvent.hasServiceTaskReport">
+      <span class="mdi mdi-18px mdi-alert-outline" matTooltip="Report non generato"></span>
+    </div>
+    &nbsp;
+    <div *ngIf="!serviceTaskEvent.isServiceTaskEditable">
+      <span class="mdi mdi-18px mdi-lock-outline" matTooltip="Non modificabile"></span>
+    </div>
+    &nbsp;
+    <div *ngIf="serviceTaskEvent.userCnt > 1">
+      <span class="mdi mdi-18px mdi-account-multiple" [matTooltip]="getTooltipUserList(serviceTaskEvent)" matTooltipClass="tooltip-day-info"></span>
+    </div>
+    &nbsp;
+    <div *ngIf="serviceTaskEvent.serviceBadgeCnt > 0">
+      <span class="mdi mdi-18px mdi-information-outline" [matTooltip]="getTooltipTaskExtra(serviceTaskEvent)" matTooltipClass="tooltip-day-info"></span>
+    </div>
+  </div>
+</div>

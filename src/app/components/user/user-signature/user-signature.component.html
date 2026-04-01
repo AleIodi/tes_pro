@@ -1,0 +1,15 @@
+<div style="display: flex; flex-direction: column;">
+  <div style="flex: 1;">
+    <app-signature [width]="800" [height]="250" [data]="user ? user.signature : null" [showBorderBottom]="true"></app-signature>
+  </div>
+
+  <br /><br />
+  <div style="flex: 1;">
+    <button mat-raised-button color="f4ns-confirm" (click)="save()" [disabled]="this.confirmClicked" style="margin-right: 10px;">
+      Salva
+    </button>
+    <button mat-raised-button color="f4ns-action" (click)="clear()">
+      Pulisci
+    </button>
+  </div>
+</div>

@@ -1,0 +1,199 @@
+<form #f4nsForm="ngForm" [formGroup]="formGroup">
+  <div style="display: flex; flex-direction: column;">
+
+    <div style="padding: 10px;">
+
+      <div style="flex: 1; display: flex;">
+        <app-form-field [type]="'text'" [label]="'Magazzino'" [name]="'magazzino'" [formField]="formGroupObj.magazzino" style="flex: 1;"></app-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!--PROGRAMMA-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; margin-bottom: 5px;">
+        <div class="f4ns-title" style="flex: 1; ">
+          <span>PROGRAMMA</span>
+        </div>
+        <div class="f4ns-title" style="flex: 0 0 100px; text-align: center;">
+          <span>ESITO</span>
+        </div>
+      </div>
+
+      <!--1-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Spiegazione dei comandi</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0010'" [formField]="formGroupObj.q0010" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--2-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Spiegazione inserimento in corsia</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0020'" [formField]="formGroupObj.q0020" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--3-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Individuazione dei dispositivi di sicurezza</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0030'" [formField]="formGroupObj.q0030" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--4-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Regolazioni meccaniche</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0040'" [formField]="formGroupObj.q0040" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--5-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Spiegazione sull’utilizzo della macchina in modalità “manuale”</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0050'" [formField]="formGroupObj.q0050" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--6-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Spiegazione sull’utilizzo della macchina in modalità “manuale - avanzato” (esclusione delle sicurezze tramite password temporanea)</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0060'" [formField]="formGroupObj.q0060" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--7-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Spiegazione sull’utilizzo della macchina in modalità “automatica”</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0070'" [formField]="formGroupObj.q0070" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--8-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Regolazione dei parametri di lavoro (offset pinza, offset carro, offset introduzione)</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0080'" [formField]="formGroupObj.q0080" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--9-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Prova pratica generale</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0090'" [formField]="formGroupObj.q0090" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--10-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Simulazione insorgenza errori e loro risoluzione</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0100'" [formField]="formGroupObj.q0100" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--11-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; border-bottom: 1px solid #0000001f;">
+        <div style="flex: 1; ">
+          <span>Note comportamentali per l’operatore per un utilizzo in sicurezza della macchina</span>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q0110'" [formField]="formGroupObj.q0110" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--1010-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <div style="flex: 1; ">
+          <app-form-field [type]="'text'" [label]="'Extra 1'" [name]="'q1010_t'" [formField]="formGroupObj.q1010_t" style="flex: 1; margin-right: 10px;"></app-form-field>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q1010'" [formField]="formGroupObj.q1010" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--1020-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <div style="flex: 1; ">
+          <app-form-field [type]="'text'" [label]="'Extra 2'" [name]="'q1020_t'" [formField]="formGroupObj.q1020_t" style="flex: 1; margin-right: 10px;"></app-form-field>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q1020'" [formField]="formGroupObj.q1020" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <!--1030-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <div style="flex: 1; ">
+          <app-form-field [type]="'text'" [label]="'Extra 3'" [name]="'q1030_t'" [formField]="formGroupObj.q1030_t" style="flex: 1; margin-right: 10px;"></app-form-field>
+        </div>
+        <app-form-field [type]="'radiogroup_horizontal'" [name]="'q1030'" [formField]="formGroupObj.q1030" [radioButtonList]="checkListAnswerList" style="flex: 0 0 100px;"></app-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div style="flex: 1; display: flex;">
+        <app-form-field [type]="'textarea'" [label]="'Note'" [name]="'note'" [formField]="formGroupObj.note" style="flex: 2;"></app-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!--PARTECIPANTI-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center; margin-bottom: 5px;">
+        <div class="f4ns-title" style="flex: 1; ">
+          <span>ELENCO PARTECIPANTI ALL'ADDESTRAMENTO</span>
+        </div>
+      </div>
+
+      <!--1-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <app-form-field [type]="'text'" [label]="'Reparto'" [name]="'p0010_1'" [formField]="formGroupObj.p0010_1" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Nome'" [name]="'p0010_2'" [formField]="formGroupObj.p0010_2" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Cognome'" [name]="'p0010_3'" [formField]="formGroupObj.p0010_3" style="flex: 1;"></app-form-field>
+      </div>
+
+      <!--2-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <app-form-field [type]="'text'" [label]="'Reparto'" [name]="'p0020_1'" [formField]="formGroupObj.p0020_1" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Nome'" [name]="'p0020_2'" [formField]="formGroupObj.p0020_2" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Cognome'" [name]="'p0020_3'" [formField]="formGroupObj.p0020_3" style="flex: 1;"></app-form-field>
+      </div>
+
+      <!--3-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <app-form-field [type]="'text'" [label]="'Reparto'" [name]="'p0030_1'" [formField]="formGroupObj.p0030_1" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Nome'" [name]="'p0030_2'" [formField]="formGroupObj.p0030_2" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Cognome'" [name]="'p0030_3'" [formField]="formGroupObj.p0030_3" style="flex: 1;"></app-form-field>
+      </div>
+
+      <!--4-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <app-form-field [type]="'text'" [label]="'Reparto'" [name]="'p0040_1'" [formField]="formGroupObj.p0040_1" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Nome'" [name]="'p0040_2'" [formField]="formGroupObj.p0040_2" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Cognome'" [name]="'p0040_3'" [formField]="formGroupObj.p0040_3" style="flex: 1;"></app-form-field>
+      </div>
+
+      <!--5-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <app-form-field [type]="'text'" [label]="'Reparto'" [name]="'p0050_1'" [formField]="formGroupObj.p0050_1" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Nome'" [name]="'p0050_2'" [formField]="formGroupObj.p0050_2" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Cognome'" [name]="'p0050_3'" [formField]="formGroupObj.p0050_3" style="flex: 1;"></app-form-field>
+      </div>
+
+      <!--6-->
+      <div style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+        <app-form-field [type]="'text'" [label]="'Reparto'" [name]="'p0060_1'" [formField]="formGroupObj.p0060_1" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Nome'" [name]="'p0060_2'" [formField]="formGroupObj.p0060_2" style="flex: 1; margin-right: 10px;"></app-form-field>
+        <app-form-field [type]="'text'" [label]="'Cognome'" [name]="'p0060_3'" [formField]="formGroupObj.p0060_3" style="flex: 1;"></app-form-field>
+      </div>
+
+      <div style="flex: 1; margin-top: 5px;">
+        <button mat-raised-button color="f4ns-confirm" (click)="autodopVerbal_save()" [disabled]="!f4nsForm.valid">
+          Salva
+        </button>
+      </div>
+
+    </div>
+
+  </div>

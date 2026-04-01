@@ -1,0 +1,222 @@
+{
+  "consumer_typology": [
+    {
+      "idr": 1,
+      "code": "CT01",
+      "name": "Clienti"
+    },
+    {
+      "idr": 2,
+      "code": "CT02",
+      "name": "Destinazione"
+    }
+  ],
+  "consumer": [
+    {
+      "idr": 1,
+      "code": "C001",
+      "name": "4Next Solutions Srl",
+      "idr_consumer_typology": 1
+    },
+    {
+      "idr": 2,
+      "code": "C002",
+      "name": "Akerlund",
+      "idr_consumer_typology": 1
+    },
+    {
+      "idr": 3,
+      "code": "C003",
+      "name": "AutoDop",
+      "idr_consumer_typology": 1
+    },
+    {
+      "idr": 4,
+      "code": "C004",
+      "name": "Bianchi Group",
+      "idr_consumer_typology": 1
+    }
+  ],
+  "job": [
+    {
+      "idr": 1,
+      "idr_consumer": 1,
+      "code": "C20999",
+      "name": "Gestione Ufficio"
+    },
+    {
+      "idr": 2,
+      "idr_consumer": 1,
+      "code": "C20987",
+      "name": "Offerte Budget"
+    },
+    {
+      "idr": 3,
+      "idr_consumer": 2,
+      "code": "C20028",
+      "name": "Assistenza 2020"
+    },
+    {
+      "idr": 4,
+      "idr_consumer": 3,
+      "code": "C20043",
+      "name": "Sviluppo Implementazioni"
+    },
+    {
+      "idr": 5,
+      "idr_consumer": 4,
+      "code": "C2000",
+      "name": "Assistenza 2020"
+    }
+  ],
+  "job_details_action": [
+    {
+      "idr": 1,
+      "code": "A001",
+      "name": "Gestione"
+    },
+    {
+      "idr": 2,
+      "code": "A002",
+      "name": "Pianificazione"
+    },
+    {
+      "idr": 3,
+      "code": "A003",
+      "name": "Analisi"
+    },
+    {
+      "idr": 4,
+      "code": "A004",
+      "name": "Sviluppo"
+    },
+    {
+      "idr": 5,
+      "code": "A005",
+      "name": "Test"
+    },
+    {
+      "idr": 6,
+      "code": "A006",
+      "name": "Collaudo"
+    },
+    {
+      "idr": 7,
+      "code": "A007",
+      "name": "Assistenza"
+    }
+  ],
+  "job_details": [
+    {
+      "idr": 1,
+      "idr_job": 1,
+      "idr_job_details_action": 1,
+      "code": "JD001"
+    },
+    {
+      "idr": 2,
+      "idr_job": 1,
+      "idr_job_details_action": 2,
+      "code": "JD002"
+    },
+    {
+      "idr": 3,
+      "idr_job": 2,
+      "idr_job_details_action": 1,
+      "code": "JD003"
+    },
+    {
+      "idr": 4,
+      "idr_job": 3,
+      "idr_job_details_action": 4,
+      "code": "JD004"
+    },
+    {
+      "idr": 5,
+      "idr_job": 3,
+      "idr_job_details_action": 6,
+      "code": "JD005"
+    },
+    {
+      "idr": 6,
+      "idr_job": 4,
+      "idr_job_details_action": 6,
+      "code": "JD004"
+    },
+    {
+      "idr": 7,
+      "idr_job": 5,
+      "idr_job_details_action": 6,
+      "code": "JD007"
+    }
+  ],
+  "service_call": [],
+  "service_task": [],
+  "service_operation": [],
+  "contact": [
+    {
+      "idr": 1,
+      "idr_consumer": 1,
+      "name_first": "Cesare",
+      "name_last": "Motta",
+      "email": "cesare.motta@4nextsolutions.com"
+    },
+    {
+      "idr": 2,
+      "idr_consumer": 1,
+      "name_first": "Aldo",
+      "name_last": "Rotunno",
+      "email": "aldo.rotunno@4nextsolutions.com"
+    },
+    {
+      "idr": 3,
+      "idr_consumer": 1,
+      "name_first": "Fabio",
+      "name_last": "Rigozzi",
+      "email": "fabio.rigozzi@4nextsolutions.com"
+    },
+    {
+      "idr": 4,
+      "idr_consumer": 2,
+      "name_first": "Stefano",
+      "name_last": "Lupis",
+      "email": "lupus@infabula.com"
+    },
+    {
+      "idr": 5,
+      "idr_consumer": 3,
+      "name_first": "Paolo",
+      "name_last": "Casoni",
+      "email": "pcasoni@autodop.it"
+    },
+    {
+      "idr": 6,
+      "idr_consumer": 4,
+      "name_first": "Alberto",
+      "name_last": "leva",
+      "email": "aleva@noncepiu.it"
+    }
+  ],
+  "product": [
+    {
+      "idr": 1,
+      "code": "ART1",
+      "name": "Penna"
+    },
+    {
+      "idr": 2,
+      "code": "ART2",
+      "name": "Matita"
+    },
+    {
+      "idr": 3,
+      "code": "ART3",
+      "name": "Quadernetto"
+    },
+    {
+      "idr": 4,
+      "code": "ART4",
+      "name": "Il PLC"
+    }
+  ]
+}

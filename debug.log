@@ -1,0 +1,14 @@
+[1008/122748.524:ERROR:scoped_process_suspend.cc(31)] NtSuspendProcess: Tentativo di accesso a un processo in fase di chiusura. (0xc000010a)
+[1008/122748.528:ERROR:process_info.cc(118)] ReadProcessMemory bool __cdecl crashpad::(anonymous namespace)::ReadStruct(HANDLE, crashpad::WinVMAddress, T *) [T = crashpad::process_types::PEB<crashpad::process_types::internal::Traits64>]: Richiesta ReadProcessMemory o WriteProcessMemory completata solo parzialmente. (0x12B)
+[1008/122748.528:ERROR:process_info.cc(551)] ReadProcessData failed
+[1008/122838.129:ERROR:process_info.cc(329)] VirtualQueryEx: Accesso negato. (0x5)
+[1008/122838.130:ERROR:process_info.cc(556)] ReadMemoryInfo failed
+[1008/122838.130:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Tentativo di accesso a un processo in fase di chiusura. (0xc000010a)
+[1008/122845.145:ERROR:process_info.cc(329)] VirtualQueryEx: Accesso negato. (0x5)
+[1008/122845.145:ERROR:process_info.cc(556)] ReadMemoryInfo failed
+[1008/122845.145:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Tentativo di accesso a un processo in fase di chiusura. (0xc000010a)
+[1015/101755.724:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
+[1016/093252.412:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
+[1023/084750.215:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
+[1102/091928.082:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
+[1103/090559.997:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)

@@ -1,0 +1,92 @@
+<div style="flex: 1 1 auto; width: 100%; display: flex; flex-direction: column;">
+  <div style="flex: 1 1 auto; width: 100%; display: flex; flex-direction: column;">
+    <mat-tab-group animationDuration="200ms" style="flex: 1;">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="mdi mdi-clipboard-text-outline" style="margin-right: 10px;"></mat-icon>
+          Attività
+        </ng-template>
+        <mat-toolbar color="accent" class="f4ns-toolbar f4ns-header" style="flex: 0 0 auto;">
+          <button [disabled]="isEditable || !serviceTaskIsEditable" mat-icon-button matTooltip="Modifica" (click)="serviceTask_setEditable(true)">
+            <mat-icon class="mdi mdi-pencil"></mat-icon>
+          </button>
+
+          <button [disabled]="isEditable" mat-icon-button matTooltip="Report" (click)="report()">
+            <mat-icon class="mdi mdi mdi-file-pdf-outline"></mat-icon>
+          </button>
+        </mat-toolbar>
+
+        <div style="padding: 10px;">
+
+          <div style="flex: 1;">
+            <app-form-field [type]="'autocomplete'" [label]="'Referente Cliente'" [name]="'contact'" [formField]="formGroupObj.contact" [autocompleteObj]="contactAutocompleteObj" style="flex: 1;"></app-form-field>
+          </div>
+
+          <div style="flex: 1;">
+            <app-form-field [type]="'text'" [label]="'Descrizione dell\'attività'" [name]="'description'" [formField]="formGroupObj.description" style="flex: 1;"></app-form-field>
+          </div>
+
+          <div style="flex: 1;">
+            <app-form-field [type]="'text'" [label]="'Note attività'" [name]="'notes'" [formField]="formGroupObj.notes" style="flex: 1;"></app-form-field>
+          </div>
+
+          <div style="flex: 1;">
+            <app-form-field [type]="'text'" [label]="'Note interne'" [name]="'notes_internal'" [formField]="formGroupObj.notes_internal" style="flex: 1;"></app-form-field>
+          </div>
+
+          <div style="flex: 1;">
+            <app-form-field [type]="'text'" [label]="'Furgone'" [name]="'truck'" [formField]="formGroupObj.truck" style="flex: 1;"></app-form-field>
+          </div>
+
+          <div *ngIf="isEditable" style="flex: 1;">
+            <button mat-raised-button color="f4ns-confirm" (click)="serviceTask_save()">
+              Salva
+            </button>
+          </div>
+
+        </div>
+
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="mdi mdi-progress-wrench" style="margin-right: 10px;"></mat-icon>
+          Operazioni
+        </ng-template>
+        <app-service-operation-list [serviceTypologyCode]="'EXTERNAL'" [serviceTask]="serviceTask" [dateStart]="dateStart" [dateEnd]="dateEnd"></app-service-operation-list>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="mdi mdi-car-hatchback" style="margin-right: 10px;"></mat-icon>
+          Viaggi
+        </ng-template>
+        <app-service-trip-ext-list [_isAddEnabled]="true" [serviceTask]="serviceTask" [dateStart]="dateStart" [dateEnd]="dateEnd"></app-service-trip-ext-list>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="mdi mdi-currency-eur" style="margin-right: 10px;"></mat-icon>
+          Spese
+        </ng-template>
+        <app-service-extra-list [serviceTypologyCode]="'EXTERNAL'" [_isAddEnabled]="true" [serviceTask]="serviceTask" [dateStart]="dateStart"></app-service-extra-list>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="mdi mdi-buffer" style="margin-right: 10px;"></mat-icon>
+          Prodotti
+        </ng-template>
+        <app-service-task-product-ext-list [_isAddEnabled]="true" [serviceTask]="serviceTask" [dateStart]="dateStart"></app-service-task-product-ext-list>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="mdi mdi-email-check-outline" style="margin-right: 10px;"></mat-icon>
+          Email
+        </ng-template>
+        <app-service-task-report-mail-ext-list [_isAddEnabled]="true" [serviceTask]="serviceTask"></app-service-task-report-mail-ext-list>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<form #f4nsForm="ngForm" [formGroup]="formGroup">
+  <div style="display: flex; flex-direction: column;">
+
+    <div style="flex: 1;">
+      <app-form-field [type]="'autocomplete'" [label]="'Utenti'" [name]="'user'" [formField]="formGroupObj.user" [autocompleteObj]="userAutocompleteObj" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div class="form-button-group" style="flex: 1;">
+      <button mat-raised-button color="f4ns-confirm" (click)="save()" [disabled]="this.confirmClicked || !f4nsForm.valid">
+        Salva
+      </button>
+
+      <button mat-raised-button color="f4ns-action" style="margin-left: 10px;" (click)="dialogRef.close()">
+        Annulla
+      </button>
+
+    </div>
+  </div>
+</form>

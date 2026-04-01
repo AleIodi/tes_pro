@@ -1,0 +1,292 @@
+<div id="report-toolbar" style="display: flex; flex-direction: column;">
+  <mat-toolbar color="accent" class="f4ns-toolbar f4ns-header" style="flex: 0 0 auto;">
+    <button *ngIf="isSigned === false" mat-icon-button matTooltip="Firma Cliente" (click)="signatureCustomer()">
+      <mat-icon class="mdi mdi-pen"></mat-icon>
+    </button>
+    <button *ngIf="!isPublic && isSigned === true" mat-icon-button matTooltip="Firma Cliente" (click)="removeSignatureCustomer()">
+      <mat-icon class="mdi mdi-pen-off" style="color: #cd363f;"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Stampa PDF" (click)="printPDF()">
+      <mat-icon class="mdi mdi-printer"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Esporta PDF" (click)="exportPDF()">
+      <mat-icon class="mdi mdi-file-pdf-outline"></mat-icon>
+    </button>
+
+    <!-- <button mat-icon-button matTooltip="TEST" (click)="test()">
+      <mat-icon class="mdi mdi-dog"></mat-icon>
+    </button> -->
+
+    <!-- <button mat-icon-button matTooltip="TEST" printSectionId="report" ngxPrint [useExistingCss]="true">
+      <mat-icon class="mdi mdi-dog"></mat-icon>
+    </button> -->
+
+    <!-- <button mat-icon-button matTooltip="TEST" (click)="getPDFBase64()">
+      <mat-icon class="mdi mdi-dog"></mat-icon>
+    </button> -->
+
+    <button *ngIf="!isPublic" mat-icon-button matTooltip="Invia Email" (click)="sendMail()">
+      <mat-icon class="mdi mdi-mail"></mat-icon>
+    </button>
+    <button *ngIf="!isPublic" [disabled]="isSigned === true" mat-icon-button matTooltip="Cancella Report" (click)="deleteReport()">
+      <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+    </button>
+    <span style="flex: 1 1 auto"></span>
+    <div style="display: flex; flex-direction: row; align-items: center; gap: 4px;">
+      <button *ngIf="!isPublic && isSent === false && isSigned === false" mat-icon-button matTooltip="Segna come Inviato" (click)="setStatusSent()">
+        <mat-icon class="mdi mdi-check-circle-outline" style="color: darkred;"></mat-icon>
+      </button>
+      <!-- bottone rimuovi stato inviato disabilitato
+      <button *ngIf="!isPublic && isSent === true" mat-icon-button matTooltip="Rimuovi stato Inviato" (click)="removeStatusSent()">
+        <mat-icon class="mdi mdi-check-circle-outline" style="color: #81c784;"></mat-icon>
+      </button>
+      -->
+      <span style="opacity: 0.4; margin: 0 4px;">|</span>
+      <div style="display: flex; flex-direction: column; align-items: center; line-height: 16px;" [matTooltip]="'Stato Report'">
+        <span style="font-size: 11px; opacity: 0.7;">Stato rapportino:</span>
+        <span>{{serviceTaskReportStatus ? serviceTaskReportStatus.label : ""}}</span>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>
+
+<div #report id="report" class="f4ns-report">
+
+  <div #preview class="f4ns-report-preview">
+    <div #header class="f4ns-report-header">
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 95px; border-bottom: 2px solid black;">
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 0 4px 4px 4px;">
+          <div style="flex: 1; max-height: 12px; font-size: 10px;">Sede legale e operativa:</div>
+          <div style="flex: 1; max-height: 12px; font-size: 10px;">Via Antonio Ligabue 2 - 42040 Campegine (RE)</div>
+          <div style="flex: 1; max-height: 12px; font-size: 10px;">Tel. 0522 906065</div>
+          <div style="flex: 1; max-height: 12px; font-size: 10px;">C.F. / P.Iva 02677440352</div>
+          <div style="flex: 1; max-height: 12px; font-size: 10px; color: darkred;">info&#64;autodop.it - www.autodop.it</div>
+        </div>
+
+        <div style="flex: 1; height: 95px; padding-top: 4px;" class="f4ns-logo">
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px; border-bottom: 2px solid black;">
+        <div style="flex: 2; padding: 4px; font-weight: bold;">
+          NOTA DI LAVORO
+        </div>
+
+        <div style="flex: 1; padding: 4px; font-weight: bold; color: darkred;">
+          {{serviceTaskReport ? serviceTaskReport.code : ""}}
+        </div>
+
+        <div style="flex: 1; padding: 4px; text-align: right;">
+          {{serviceTaskReport ? serviceTaskReportDate : ""}}
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 50px; border-bottom: 2px solid black;">
+        <div style="flex: 3; display: flex; flex-direction: column; padding: 4px; border-right: 2px solid black;">
+          <div style="flex: 1; display: flex; flex-direction: row;">
+            <div style="flex: 1; max-height: 20px;" class="f4ns-label">Cliente:</div>
+            <div style="flex: 6; max-height: 20px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 0px;">{{consumer && consumer["name"] ? consumer["name"] : ""}}</div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: row;">
+            <div style="flex: 1; max-height: 20px;" class="f4ns-label">Sede:</div>
+            <div style="flex: 6; max-height: 20px;">{{ destination ? ((destination.city?destination.city:"") + (destination.address?" - " + destination.address:"")) : ""}}</div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 4px;">
+          <div style="flex: 1; max-height: 20px;" class="f4ns-label">Referente cliente:</div>
+          <div style="flex: 1; display: flex; flex-direction: row;">
+            <div style="flex: 1; max-height: 20px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 0px;">{{ contact ? contact.name_first + " " + contact.name_last : "" }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px; border-bottom: 2px solid black;">
+        <div style="flex: 1; padding: 4px; border-right: 2px solid black;" class="f4ns-title">
+          VIAGGIO ANDATA
+        </div>
+
+        <div style="flex: 1; padding: 4px;" class="f4ns-title">
+          VIAGGIO RITORNO
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 56px; border-bottom: 2px solid black;">
+        <div style="flex: 1; display: flex; flex-direction: column; border-right: 2px solid black;">
+          <div style="flex: 1; display: flex; flex-direction: row; padding: 4px; max-height: 28px; border-bottom: 2px solid black;">
+            <div style="flex: 1;" class="f4ns-label">Dalle:</div>
+            <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceTripInfoList[0] && dayList[dayFirstK].serviceTripInfoList[0].dateStart_HourMinute ? dayList[dayFirstK].serviceTripInfoList[0].dateStart_HourMinute : ""}}</div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: row; padding: 4px; max-height: 28px;">
+            <div style="flex: 1;" class="f4ns-label">Alle:</div>
+            <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceTripInfoList[0] && dayList[dayFirstK].serviceTripInfoList[0].dateEnd_HourMinute ? dayList[dayFirstK].serviceTripInfoList[0].dateEnd_HourMinute : ""}}</div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: row; align-items: center; padding: 4px; border-right: 2px solid black;">
+          <div style="flex: 1;" class="f4ns-label">Totale:</div>
+          <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceTripInfoList[0] && dayList[dayFirstK].serviceTripInfoList[0].hours ? (dayList[dayFirstK].serviceTripInfoList[0].hours + " h") : ""}}</div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: row; align-items: center; padding: 4px; border-right: 2px solid black;">
+          <div style="flex: 1;" class="f4ns-label">Km:</div>
+          <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceTripInfoList[0] && dayList[dayFirstK].serviceTripInfoList[0].km_invoice ? dayList[dayFirstK].serviceTripInfoList[0].km_invoice : ""}}</div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; border-right: 2px solid black;">
+          <div style="flex: 1; display: flex; flex-direction: row; padding: 4px; max-height: 28px; border-bottom: 2px solid black;">
+            <div style="flex: 1;" class="f4ns-label">Dalle:</div>
+            <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceTripInfoList[1] && dayList[dayFirstK].serviceTripInfoList[1].dateStart_HourMinute ? dayList[dayFirstK].serviceTripInfoList[1].dateStart_HourMinute : ""}}</div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: row; padding: 4px; max-height: 28px;">
+            <div style="flex: 1;" class="f4ns-label">Alle:</div>
+            <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceTripInfoList[1] && dayList[dayFirstK].serviceTripInfoList[1].dateEnd_HourMinute ? dayList[dayFirstK].serviceTripInfoList[1].dateEnd_HourMinute : ""}}</div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: row; align-items: center; padding: 4px; border-right: 2px solid black;">
+          <div style="flex: 1;" class="f4ns-label">Totale:</div>
+          <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceTripInfoList[1] && dayList[dayFirstK].serviceTripInfoList[1].hours ? (dayList[dayFirstK].serviceTripInfoList[1].hours + " h") : ""}}</div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: row; align-items: center; padding: 4px;">
+          <div style="flex: 1;" class="f4ns-label">Km:</div>
+          <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceTripInfoList[1] && dayList[dayFirstK].serviceTripInfoList[1].km_invoice ? dayList[dayFirstK].serviceTripInfoList[1].km_invoice : ""}}</div>
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px; border-bottom: 2px solid black;">
+        <div style="flex: 1; padding: 4px; border-right: 2px solid black;" class="f4ns-title">
+          LAVORO MATTINA
+        </div>
+
+        <div style="flex: 1; padding: 4px;" class="f4ns-title">
+          LAVORO POMERIGGIO
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 56px; border-bottom: 2px solid black;">
+
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 4px; border-right: 2px solid black;">
+          <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px;">
+            <div style="flex: 1;" class="f4ns-label">Dalle:</div>
+            <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceOperationInfoList[0] && dayList[dayFirstK].serviceOperationInfoList[0].dateStart_HourMinute ? dayList[dayFirstK].serviceOperationInfoList[0].dateStart_HourMinute : ""}}</div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px;">
+            <div style="flex: 1;" class="f4ns-label">Alle:</div>
+            <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceOperationInfoList[0] && dayList[dayFirstK].serviceOperationInfoList[0].dateEnd_HourMinute ? dayList[dayFirstK].serviceOperationInfoList[0].dateEnd_HourMinute : ""}}</div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: row; align-items: center; padding: 4px; border-right: 2px solid black;">
+          <div style="flex: 1;" class="f4ns-label">Totale:</div>
+          <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceOperationInfoList[0] && dayList[dayFirstK].serviceOperationInfoList[0].hours ? (dayList[dayFirstK].serviceOperationInfoList[0].hours + " h") : ""}}</div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 4px; border-right: 2px solid black;">
+          <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px;">
+            <div style="flex: 1;" class="f4ns-label">Dalle:</div>
+            <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceOperationInfoList[1] && dayList[dayFirstK].serviceOperationInfoList[1].dateStart_HourMinute ? dayList[dayFirstK].serviceOperationInfoList[1].dateStart_HourMinute : ""}}</div>
+          </div>
+
+          <div style="flex: 1; display: flex; flex-direction: row; max-height: 28px;">
+            <div style="flex: 1;" class="f4ns-label">Alle:</div>
+            <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceOperationInfoList[1] && dayList[dayFirstK].serviceOperationInfoList[1].dateEnd_HourMinute ? dayList[dayFirstK].serviceOperationInfoList[1].dateEnd_HourMinute : ""}}</div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: row; align-items: center; padding: 4px;">
+          <div style="flex: 1;" class="f4ns-label">Totale:</div>
+          <div style="flex: 1;">{{dayFirstK !== null && dayList[dayFirstK].serviceOperationInfoList[1] && dayList[dayFirstK].serviceOperationInfoList[1].hours ? (dayList[dayFirstK].serviceOperationInfoList[1].hours + " h") : ""}}</div>
+        </div>
+
+      </div>
+
+      <!--MACCHINE, COMMESSA, TECNICO-->
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 68px; min-height: 68px; border-bottom: 2px solid black;">
+
+        <div style="flex: 2; display: flex; flex-direction: column; padding: 4px 14px 4px 4px; border-right: 2px solid black; min-width: 0;">
+          <div style="flex: 0 0 22px;" class="f4ns-label">Macchine:</div>
+          <div style="flex: 1;">{{ machineStr }}</div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 4px; border-right: 2px solid black; min-width: 0;">
+          <div style="flex: 0 0 22px;" class="f4ns-label">Commessa:</div>
+          <div style="flex: 1;">{{ job && job.code ? job.code : "" }}</div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 4px;">
+          <div style="flex: 0 0 22px;" class="f4ns-label">{{ userList.length > 1 ? "Tecnici Sig:" : "Tecnico Sig:" }}</div>
+          <div style="flex: 1;">{{ userListStr ? userListStr : "" }}</div>
+        </div>
+
+      </div>
+
+      <!-- INTERVENTO CONCLUSIVO -->
+      <div style="flex: 1; display: flex; flex-direction: row; border-bottom: 2px solid black;">
+
+        <div style="flex: 1; display: flex; flex-direction: row; padding: 4px;">
+          <mat-checkbox [disabled]="false" [checked]="serviceTask && serviceTask.is_finished=='1'" style="flex: 1; text-align: center; pointer-events: none;">Intervento concluso</mat-checkbox>
+          <mat-checkbox [disabled]="false" [checked]="serviceTask && serviceTask.is_finished=='0'" style="flex: 1; text-align: center; pointer-events: none;">Intervento da concludere</mat-checkbox>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div #body class="f4ns-report-body">
+
+      <!-- IL BODY DEVE CONTENERE SOLO ELEMENTI CON CLASSE f4ns-report-row -->
+
+      <div class="f4ns-report-row f4ns-title" style="max-height: 28px; padding: 4px; border-top: 2px solid black; border-bottom: 2px solid black;">
+        RESOCONTO TECNICO
+      </div>
+      <ng-container *ngIf="dayFirstK !== null && dayList[dayFirstK].serviceOperationInfoList.length > 0">
+        <ng-container *ngFor="let serviceOperationInfo of dayList[dayFirstK].serviceOperationInfoList">
+          <ng-container *ngFor="let serviceOperation of serviceOperationInfo.serviceOperationList">
+            <div class="f4ns-report-row" style="padding: 4px; display: flex; flex-direction: row;">
+              <div style="flex: 0 0 60px; align-self: center;">{{ serviceOperation["hourStr"] }}</div>
+              <div style="flex: 0 0 120px; align-self: center;">{{ serviceOperation["userStr"] }}</div>
+              <div style="flex: 0 0 140px; align-self: center;">{{ serviceOperation["machineStr"] }}</div>
+              <div style="flex: 1; align-self: center;">{{ serviceOperation.description }}</div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+      <div class="f4ns-report-row f4ns-title" style="flex: 1; max-height: 28px; padding: 4px; border-top: 2px solid black; border-bottom: 2px solid black;">
+        MATERIALE UTILIZZATO
+      </div>
+      <ng-container *ngFor="let serviceTaskProduct of serviceTaskProductList">
+        <div class="f4ns-report-row" style="display: flex; flex-direction: row; padding: 4px;">
+          <div style="flex: 0 0 120px;">{{ serviceTaskProduct && serviceTaskProduct["product"] ? serviceTaskProduct["product"]["article"] : ""}}</div>
+          <div style="flex: 1;">{{ serviceTaskProduct && serviceTaskProduct["product"] ? serviceTaskProduct["product"]["name"] : ""}}</div>
+          <div style="flex: 0 0 30px; text-align: right;">{{serviceTaskProduct.value}}</div>
+          <div style="flex: 0 0 3px;"></div>
+          <div style="flex: 0 0 30px;">{{ serviceTaskProduct && serviceTaskProduct["product"] ? serviceTaskProduct["product"]["um"] : ""}}</div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div #footer class="f4ns-report-footer">
+      <div style="flex: 1; display: flex; flex-direction: row; max-height: 80px;">
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 4px; border-top: 2px solid black; border-right: 2px solid black;">
+          <div style="flex: 1;" class="f4ns-label">Firma Cliente:</div>
+          <div style="flex: 1;">
+            <app-signature *ngIf="serviceTaskReport" [width]="200" [height]="50" [readOnly]="true" [data]="serviceTaskReport.signature"></app-signature>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 4px; border-top: 2px solid black;">
+          <div style="flex: 1;" class="f4ns-label">Firma Tecnico:</div>
+          <div style="flex: 1; text-align: center;">
+            <app-signature *ngIf="user" [width]="200" [height]="50" [readOnly]="true" [data]="user.signature"></app-signature>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div #page class="f4ns-report-page f4ns-report-hidden"> </div>
+  </div>
+
+</div>

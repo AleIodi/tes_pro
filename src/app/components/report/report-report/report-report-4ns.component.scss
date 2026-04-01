@@ -1,0 +1,48 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.f4ns-print {
+  background-color: blue;
+}
+
+.f4ns-format-A4 {
+  width: 19.9cm;
+  height: 28.6cm;
+  margin: 0.5cm;
+}
+
+.f4ns-center {
+  text-align: center;
+}
+
+// .f4ns-border-dark {
+//   border: 2px solid black;
+// }
+
+// .f4ns-border-light {
+//   border: 1px solid lightgrey;
+// }
+
+// .f4ns-border-none {
+//   border: 0;
+// }
+
+.f4ns-logo {
+  height: 50px;
+  background: url("../../../../assets/logos/customer.png") no-repeat left;
+  background-origin: content-box;
+  background-size: contain;
+  padding: 5px 5px 5px 5px;
+}
+
+.f4ns-title {
+  background-color: lightgrey;
+  font-weight: bold;
+}
+
+.f4ns-value {
+  font-weight: bold;
+}

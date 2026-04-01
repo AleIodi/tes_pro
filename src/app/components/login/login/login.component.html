@@ -1,0 +1,24 @@
+<div class="f4ns-login-background" style="flex: 1; display: flex;">
+  <div class="f4ns-login-foreground" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+    <div class="mat-elevation-z5" style="display: flex; flex-direction: column; width: 400px; padding: 20px; border-radius: 4px; background-color: white">
+
+      <span style="position: absolute; font-size: 9px; top: 0; left: 5px; font-size: 10px; color: #666666; z-index: 4;">{{appVersion}}</span>
+
+      <mat-toolbar class="f4ns-menu-logo" style="margin-bottom: 15px;"></mat-toolbar>
+
+      <div style="flex: 1;">
+        <app-form-field [type]="'text'" [label]="'Utente'" [name]="'username'" [formField]="usernameField" style="flex: 1;"></app-form-field>
+      </div>
+
+      <div style="flex: 1;">
+        <app-form-field [type]="'password'" [label]="'Password'" [name]="'password'" [formField]="passwordField" (keyEnter)="login()" style="flex: 1;"></app-form-field>
+      </div>
+
+      <div style="flex: 1; margin-top: 10px;">
+        <button mat-raised-button color="f4ns-confirm" (click)="login()">
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

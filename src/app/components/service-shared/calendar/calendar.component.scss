@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+}
+
+.calendar-container {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 84px);
+}
+
+app-calendar-service-task-event {
+  display: contents;
+}

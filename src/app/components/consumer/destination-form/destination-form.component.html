@@ -1,0 +1,40 @@
+<form #f4nsForm="ngForm" [formGroup]="formGroup">
+  <div style="display: flex; flex-direction: column;">
+
+    <app-form-field [type]="'autocomplete'" [label]="'Cliente'" [name]="'consumer'" [formField]="formGroupObj.consumer" [autocompleteObj]="consumerAutocompleteObj" style="flex: 1;"></app-form-field>
+    <app-form-field [type]="'text'" [label]="'Codice'" [name]="'code'" [formField]="formGroupObj.code" style="flex: 1;"></app-form-field>
+    <app-form-field [type]="'text'" [label]="'Nome'" [name]="'name'" [formField]="formGroupObj.name" style="flex: 1;"></app-form-field>
+
+    <div class="form-field-row">
+      <app-form-field [type]="'text'" [label]="'Indirizzo'" [name]="'address'" [formField]="formGroupObj.address" style="flex: 3;"></app-form-field>
+      <app-form-field [type]="'text'" [label]="'Cap'" [name]="'zip'" [formField]="formGroupObj.zip" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div class="form-field-row">
+      <app-form-field [type]="'text'" [label]="'Città'" [name]="'city'" [formField]="formGroupObj.city" style="flex: 2;"></app-form-field>
+      <app-form-field [type]="'text'" [label]="'Provincia'" [name]="'province'" [formField]="formGroupObj.province" style="flex: 1;"></app-form-field>
+      <app-form-field [type]="'text'" [label]="'Nazione'" [name]="'nation'" [formField]="formGroupObj.nation" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div class="form-field-row">
+      <app-form-field [type]="'text'" [label]="'Km'" [name]="'trip_km'" [formField]="formGroupObj.trip_km" style="flex: 1;"></app-form-field>
+      <app-form-field [type]="'text'" [label]="'Minuti'" [name]="'trip_minutes'" [formField]="formGroupObj.trip_minutes" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div class="form-button-group" style="flex: 1;">
+      <button mat-raised-button color="f4ns-confirm" (click)="save()" [disabled]="this.confirmClicked || !f4nsForm.valid">
+        Salva
+      </button>
+
+      <button mat-raised-button color="f4ns-action" style="margin-left: 10px;" (click)="dialogRef.close()">
+        Annulla
+      </button>
+
+      <ng-container *ngIf="destination">
+        <button mat-raised-button color="f4ns-cancel" matTooltip="Cancella" style="float: right;" (click)="delete()">
+          <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</form>

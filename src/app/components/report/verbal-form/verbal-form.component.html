@@ -1,0 +1,50 @@
+<form #f4nsForm="ngForm" [formGroup]="formGroup">
+  <div style="display: flex; flex-direction: column;">
+    <div style="flex: 1; display: flex; flex-direction: row;">
+
+      <div style="flex: 1;">
+        <div style="padding-right: 2px; padding-left: 2px;">
+          <app-form-field [type]="'date'" [label]="'Data Verbale'" [name]="'dateCreate'" [formField]="formGroupObj.dateCreate" style="flex: 1;"></app-form-field>
+        </div>
+      </div>
+      <div style="flex: 1;">
+        <app-form-field [type]="'autocomplete'" [label]="'Collaudatore'" [name]="'user'" [formField]="formGroupObj.user" [autocompleteObj]="userAutocompleteObj" style="flex: 1;"></app-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div style="flex: 1;">
+      <app-form-field [type]="'radiogroup_horizontal'" [name]="'autodopVerbalTypology'" [formField]="formGroupObj.autodopVerbalTypology" [radioButtonList]="autodopVerbalTypologyList" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div class="form-field-row">
+      <app-form-field [type]="'autocomplete'" [label]="'Cliente'" [name]="'consumer'" [formField]="formGroupObj.consumer" [autocompleteObj]="consumerAutocompleteObj" style="flex: 1;"></app-form-field>
+      <app-form-field [type]="'autocomplete'" [label]="'Sede'" [name]="'destination'" [formField]="formGroupObj.destination" [autocompleteObj]="destinationAutocompleteObj" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div class="form-field-row">
+      <app-form-field [type]="'autocomplete'" [label]="'Commessa'" [name]="'job'" [formField]="formGroupObj.job" [autocompleteObj]="jobAutocompleteObj" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div style="flex: 1;">
+      <app-form-field [type]="'autocomplete'" [label]="'Macchina'" [name]="'machine'" [formField]="formGroupObj.machine" [autocompleteObj]="machineAutocompleteObj" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div class="form-button-group" style="flex: 1;">
+      <button mat-raised-button color="f4ns-confirm" (click)="save()" [disabled]="this.confirmClicked || !f4nsForm.valid">
+        Continua
+      </button>
+
+      <button mat-raised-button color="f4ns-action" style="margin-left: 10px;" (click)="dialogRef.close()">
+        Annulla
+      </button>
+
+      <ng-container *ngIf="autodopVerbal">
+        <button mat-raised-button color="f4ns-cancel" matTooltip="Cancella" style="float: right;" (click)="delete()" [disabled]="!autodopVerbalIsEditable">
+          <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</form>

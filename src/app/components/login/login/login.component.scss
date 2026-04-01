@@ -1,0 +1,16 @@
+.f4ns-menu-logo {
+  height: 80px;
+  background: url("../../../../assets/logos/company.png") no-repeat center;
+  background-origin: content-box;
+  background-size: contain;
+}
+/*Utilizzato per lo sfondo del login*/
+.f4ns-login-background {
+  background-image: url("https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.f4ns-login-foreground {
+  backdrop-filter: blur(12px) grayscale(0.3);
+}

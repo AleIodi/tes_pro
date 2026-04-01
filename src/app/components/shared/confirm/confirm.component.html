@@ -1,0 +1,17 @@
+<div style="display: flex; flex-direction: column; height: 100%;">
+  <div style="height: 100%;">
+    <p *ngFor="let messageLine of getMessageLineList()" style="font-size: 16px;">
+      {{messageLine}}
+    </p>
+  </div>
+
+  <div style="flex: 1;">
+    <button mat-raised-button color="f4ns-confirm" [mat-dialog-close]="true">
+      Conferma
+    </button>
+
+    <button mat-raised-button color="f4ns-cancel" style="margin-left: 10px;" (click)="onNoClick()">
+      Annulla
+    </button>
+  </div>
+</div>

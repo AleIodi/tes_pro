@@ -1,0 +1,21 @@
+<div style="display: flex; padding: 1px;">
+  <div style="flex: 2; display: grid; text-align: left;">
+    <p class="f4ns-daygrid-day-hour" >
+      <ng-container *ngIf="dayWorkHours">
+        <span [matTooltip]="getServiceExtraDayTooltip()" matTooltipClass="tooltip-day-info">{{dayWorkHours}}h</span>
+      </ng-container>
+    </p>
+  </div>
+
+  <div style="flex: 1; display: flex; place-content: center; text-align: left;">
+    <p class="f4ns-daygrid-day-number">{{date ? date.getDate() : ""}}</p>
+  </div>
+
+  <div style="flex: 2; display: grid; text-align: left;">
+    <p class="f4ns-daygrid-day-extra">
+      <ng-container *ngIf="serviceExtraRefundList && serviceExtraRefundList.length > 0">
+      <span class="mdi mdi-18px mdi-account-cash" [matTooltip]="getServiceExtraRefundTooltip()" matTooltipClass="tooltip-day-info"></span>
+      </ng-container>
+    </p>
+  </div>
+</div>

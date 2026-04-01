@@ -1,0 +1,27 @@
+<form #f4nsForm="ngForm" [formGroup]="formGroup">
+  <div style="display: flex; flex-direction: column;">
+    <div style="flex: 1; display: flex; flex-direction: row;">
+      <app-form-field [type]="'text'" [label]="'Articolo'" [name]="'product'" [formField]="formGroupObj.article" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: row;">
+      <app-form-field [type]="'text'" [label]="'Descrizione'" [name]="'name'" [formField]="formGroupObj.name" style="flex: 1;"></app-form-field>
+    </div>
+
+    <div class="form-button-group" style="flex: 1;">
+      <button mat-raised-button color="f4ns-confirm" (click)="save()" [disabled]="this.confirmClicked || !f4nsForm.valid">
+        Salva
+      </button>
+
+      <button mat-raised-button color="f4ns-action" style="margin-left: 10px;" (click)="dialogRef.close()">
+        Annulla
+      </button>
+
+      <ng-container *ngIf="product">
+        <button mat-raised-button color="f4ns-cancel" matTooltip="Cancella" style="float: right;" (click)="delete()">
+          <mat-icon class="mdi mdi-delete-forever"></mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</form>

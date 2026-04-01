@@ -1,0 +1,107 @@
+<!-- Input text -->
+<ng-container *ngIf="type=='text'">
+  <mat-form-field class="f4ns-width-100" style="flex: 1;" appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <input type="text" matInput name="{{name}}" [formControl]="formField" placeholder="{{label}}" autocomplete="off">
+    <app-form-field-error [formField]="formField"></app-form-field-error>
+  </mat-form-field>
+</ng-container>
+
+<!-- Input textarea -->
+<ng-container *ngIf="type=='textarea'">
+  <mat-form-field class="f4ns-width-100" appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <textarea matInput name="{{name}}" [formControl]="formField"></textarea>
+    <app-form-field-error [formField]="formField"></app-form-field-error>
+  </mat-form-field>
+</ng-container>
+
+<!-- Input number -->
+<ng-container *ngIf="type=='number'">
+  <mat-form-field class="f4ns-width-100" appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <input type="number" matInput name="{{name}}" [formControl]="formField" (change)="changeEmit()">
+    <app-form-field-error [formField]="formField"></app-form-field-error>
+  </mat-form-field>
+</ng-container>
+
+<!-- Input password -->
+<ng-container *ngIf="type=='password'">
+  <mat-form-field class="f4ns-width-100" style="flex: 1;" appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <input type="password" matInput name="{{name}}" [formControl]="formField" placeholder="{{label}}" autocomplete="off" (keyup.enter)="keyEnterEmit()">
+    <app-form-field-error [formField]="formField"></app-form-field-error>
+  </mat-form-field>
+</ng-container>
+
+<!-- Input radiogroup -->
+<ng-container *ngIf="type=='radiogroup_horizontal' || type=='radiogroup_vertical'">
+    <mat-label *ngIf="label">{{label}}</mat-label>
+    <mat-radio-group name="{{name}}" [formControl]="formField" aria-label="Seleziona un'opzione" class="mat-form-field-wrapper" [ngStyle]="{'flex-direction': type=='radiogroup_vertical' ? 'column' : 'row'}">
+      <mat-radio-button  *ngFor="let radioButton of radioButtonList; let radioButtonK = index" [value]="radioButton">{{radioButton.name}}</mat-radio-button>
+    </mat-radio-group>
+    <app-form-field-error [formField]="formField"></app-form-field-error>
+</ng-container>
+
+<!-- Input autocomplete -->
+<ng-container *ngIf="type=='autocomplete'">
+  <mat-form-field class="f4ns-width-100" style="flex: 1;" appearance="outline">
+
+    <!-- Chip List -->
+    <mat-chip-grid *ngIf="autocomplete_isChipEnabled()" #chipList>
+      <mat-chip-row *ngFor="let data of autocompleteObj.chipsObj.dataList; let datatK = index" [removable]="autocomplete_isChipRemovable()" (removed)="chipList_removeElement(datatK)">
+        {{autocompleteObj.display(data)}}
+        <mat-icon *ngIf="autocomplete_isChipRemovable()" matChipRemove>cancel</mat-icon>
+      </mat-chip-row>
+      <input type="text" matInput name="{{name}}" #chipsInput [formControl]="formField" [matAutocomplete]="field_Auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="chipList_separatorKeysCodeList">
+    </mat-chip-grid>
+
+    <mat-label>{{label}}</mat-label>
+
+    <!-- Autocomplete -->
+    <input *ngIf="!autocomplete_isChipEnabled()" type="text" matInput name="{{name}}" [formControl]="formField" [matAutocomplete]="field_Auto" autocomplete="off">
+    <mat-autocomplete #field_Auto [displayWith]="autocompleteObj.display" (optionSelected)="autocomplete_optionSelected($event)">
+      <mat-option *ngFor="let data of autocompleteObj.dataList | async | slice : 0 : 50" [value]="data" matTooltip="{{autocompleteObj.display(data).length>120?autocompleteObj.display(data):null}}">
+        {{autocompleteObj.display(data)}}
+      </mat-option>
+    </mat-autocomplete>
+
+    <app-form-field-error *ngIf="autocomplete_isChipEnabled() && autocompleteObj.chipsObj.required" [type]="'chip'" [dataList]="autocompleteObj.chipsObj.dataList"></app-form-field-error>
+    <app-form-field-error *ngIf="!autocomplete_isChipEnabled()" [formField]="formField"></app-form-field-error>
+  </mat-form-field>
+</ng-container>
+
+<!-- Input date -->
+<ng-container *ngIf="type=='date'">
+  <mat-form-field class="f4ns-width-100" style="flex: 1;" appearance="outline" (click)="datepicker.open()">
+    <mat-label>{{label}}</mat-label>
+    <input matInput name="{{name}}" [matDatepicker]="datepicker" [formControl]="formField" readonly (keyup.enter)="datepicker.close()">
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker>
+    <app-form-field-error [formField]="formField"></app-form-field-error>
+  </mat-form-field>
+</ng-container>
+
+<!-- Input time -->
+<ng-container *ngIf="type=='time'">
+  <mat-form-field class="f4ns-width-100" style="flex: 1;" appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <input type="time" matInput name="{{name}}" [formControl]="formField" step="1800" (focusout)="focusOutEmit()">
+    <app-form-field-error [formField]="formField"></app-form-field-error>
+  </mat-form-field>
+</ng-container>
+
+<!-- Default -->
+<ng-container *ngIf="!type">
+  <mat-label style="font-size: 20px; font-weight: bold;">Type non valorizzato</mat-label>
+</ng-container>
+
+<button
+  *ngIf="autocompleteObj && autocompleteObj.buttonObj"
+  mat-icon-button
+  matSuffix
+  type="button"
+  matTooltip="{{autocompleteObj.buttonObj.label}}"
+  (click)="autocompleteObj.buttonObj.click()">
+  <mat-icon class="{{autocompleteObj.buttonObj.icon}}"></mat-icon>
+</button>
